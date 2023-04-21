@@ -1,1 +1,1 @@
-# SMU_Graduation_Project
+# 🫀2023 졸업프로젝트
