@@ -1,0 +1,22 @@
+server:
+  address: localhost
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://graduation-project-db.cdcxuhqthvdb.ap-northeast-2.rds.amazonaws.com/movieWithHRdb?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: soobin0209
+    password: tnqls9004
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
