@@ -12,8 +12,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shoewise?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: tnqls9004
+    username: 
+    password:
 
   # JPA 설정
   jpa:
@@ -33,16 +33,16 @@ spring:
     oauth2.client:
       registration:
         naver:
-          client-id: U8Ua3aKF9wkux9jTFlNm
-          client-secret: tYxtqsHTod
+          client-id: 
+          client-secret: 
           client-authentication-method: post
           authorization-grant-type: authorization_code
           redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
           scope: profile_name, account_email #동의 항목
           client-name: Naver
         kakao:
-          client-id: 6eeb8b5d78f4440ee5de867f2f4042c1
-          client-secret: N1NeUYaEEYYK1bR0k5SLQAD95UPI2j00
+          client-id: 
+          client-secret: 
           client-authentication-method: post
           authorization-grant-type: authorization_code
           redirect-uri: "http://localhost:8080/login/oauth2/code/kakao" #Redirect URI를 통해 우리가 얻으려는 code(인가코드)를 반환 받는다
@@ -72,7 +72,7 @@ cors:
 
 # jwt secret key 설정
 jwt:
-  secretKey: '6B64DCA4E72F58EDIKU9AAB215FE7afsdfwk360kkOHK2Gg9wg900jhkoLJRI09HH8fge9eGK4L9HJGBMMcoeigW16P'
+  secretKey: 
   access:
     header: Authorization
 
@@ -83,7 +83,7 @@ jwt:
 app:
   auth:
     token:
-      secret-key: "6B64DCA4E72F58EDIKU9AAB215FE7afsdfwk360kkOHK2Gg9wg900jhkoLJRI09HH8fge9eGK4L9HJGBMMcoeigW16P"
+      secret-key: 
       refresh-cookie-key: "refresh"
   oauth2:
     # OAuth2 공급자로 성공적으로 인증한 후 사용자에 대한 인증 토큰을 생성
