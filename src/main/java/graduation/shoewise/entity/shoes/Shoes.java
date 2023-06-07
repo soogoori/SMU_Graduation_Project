@@ -30,7 +30,9 @@ public class Shoes extends BaseEntity {
 
     private String brand;
 
-    // 사이즈
+    private String image;
+
+    /*// 사이즈
     @Enumerated(EnumType.STRING)
     private Fit fit; // BIG, NORMAL, SMALL
 
@@ -40,11 +42,10 @@ public class Shoes extends BaseEntity {
 
     // 착화감
     @Enumerated(EnumType.STRING)
-    private Feeling feeling; // GOOD, NORMAL, BAD
+    private Feeling feeling; // GOOD, NORMAL, BAD*/
 
     @OneToMany(mappedBy = "shoes")
     private List<Review> review = new ArrayList<>();
-
 
 
 }

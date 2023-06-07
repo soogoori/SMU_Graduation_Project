@@ -1,10 +1,12 @@
 package graduation.shoewise.controller;
 
 import graduation.shoewise.config.BaseException;
+import graduation.shoewise.entity.user.User;
 import graduation.shoewise.entity.user.dto.UserRequestDto;
 import graduation.shoewise.entity.user.dto.UserResponseDto;
 import graduation.shoewise.security.oauth.token.OAuthToken;
 import graduation.shoewise.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     // 프론트에서 인가코드 받아오는 url
-    @GetMapping("/oauth/token")
+    /*@GetMapping("/oauth/token")
     public OAuthToken login(@RequestParam("code") String code){
         // 넘어온 인가 코드를 통해 access_token 발급
         OAuthToken oauthToken = userService.getAccessToken(code);
@@ -36,7 +38,7 @@ public class UserController {
         String user = userService.saveUser(oauthToken);
 
         return oauthToken;
-    }
+    }*/
 
     @RequestMapping("/user/logout")
     public String logout(HttpServletRequest request) {
@@ -68,15 +70,17 @@ public class UserController {
     }
 
     // 프로필 수정
+    @ApiOperation(value="modify mypage info", notes = "내 정보 수정하기 - 닉네임, 발사이즈, 발폭 등")
     @PatchMapping("/user/mypage")
     public UserResponseDto updateMypage(@RequestParam("id") Long id,
                                         @RequestBody UserRequestDto requestDto) throws BaseException {
 
         return userService.updateUser(id, requestDto);
-
     }
 
     //프로필 조회
+    @ApiOperation(value="view mypage info", notes = "내 정보 조회하기")
+
     @GetMapping("/user/mypage")
     public UserResponseDto getUserInfo(
            @RequestParam("id") Long id) throws Exception{

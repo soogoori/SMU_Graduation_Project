@@ -1,6 +1,7 @@
 package graduation.shoewise.entity.review;
 
 import graduation.shoewise.entity.BaseEntity;
+import graduation.shoewise.entity.review.dto.ReviewSaveRequestDto;
 import graduation.shoewise.entity.shoes.Shoes;
 import graduation.shoewise.entity.enums.Feeling;
 import graduation.shoewise.entity.enums.Fit;
@@ -49,11 +50,24 @@ public class Review extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Feeling feeling; // GOOD, NORMAL, BAD
 
+   /* public Review(User user, Shoes shoes, ReviewSaveRequestDto requestDto) {
+        this.user = user;
+        this.shoes =shoes;
+        this.content = requestDto.getContent();
+        this.rating = requestDto.getRating();
+        this.fit = requestDto.getFit();
+        this.width =requestDto.getWidth();
+        this.feeling = requestDto.getFeeling();
+    }*/
 
     /**
      * 정적 팩토리 메소드
      */
-    public void update(String content) {
+    public void modifyReview(String content, Fit fit, Width width, Feeling feeling, Integer rating) {
         this.content = content;
+        this.fit =fit;
+        this.width =width;
+        this.feeling = feeling;
+        this.rating = rating;
     }
 }

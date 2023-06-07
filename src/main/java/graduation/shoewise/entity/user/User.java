@@ -4,6 +4,7 @@ import graduation.shoewise.entity.BaseEntity;
 import graduation.shoewise.entity.purchase.Purchase;
 import graduation.shoewise.entity.enums.ProviderType;
 import graduation.shoewise.entity.enums.RoleType;
+import graduation.shoewise.entity.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,9 +40,11 @@ public class User extends BaseEntity {
     private int size; // 발 길이
     private int width; // 발볼 너비 길이
 
-    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Purchase> purchaseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviewList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

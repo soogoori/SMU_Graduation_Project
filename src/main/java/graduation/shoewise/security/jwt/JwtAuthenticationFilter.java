@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 1. Request Header 에서 토큰을 꺼냄
         String token = resolveToken(request);
 
-        log.info("[Verifying token]");
+        log.info("[Verifying token] - JwtRequestFilter 진입");
         log.info("RequestURI: " + request.getRequestURI().toString());
         log.info("JWT : " + token);
 

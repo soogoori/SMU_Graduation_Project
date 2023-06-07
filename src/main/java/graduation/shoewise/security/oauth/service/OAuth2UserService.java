@@ -47,6 +47,12 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
      * 사용자 정보를 얻은 후, 이를 통해 DefaultOAuth2User 객체를 생성 후 반환
      * OAuth2User는 OAuth 서비스에서 가져온 유저 정보를 담고 있는 유저
      */
+
+    /**
+     * loadUser 메서드가 호출되었을 때 OAuth2UserRequest 객체에는 oauth 인증 결과인 access token을 포함
+     * 해당 access token을 통해 oAuth2User 객체 정보를 얻어오는데,
+     * 해당 객체에는 리소스 서버에서 받아온 사용자에 대한 정보가 포함되어있음
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 

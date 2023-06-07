@@ -1,5 +1,6 @@
 package graduation.shoewise.config;
 
+import graduation.shoewise.security.cookie.CookieAuthorizationRequestRepository;
 import graduation.shoewise.security.jwt.JwtAuthenticationEntryPoint;
 import graduation.shoewise.security.jwt.JwtAuthenticationFilter;
 import graduation.shoewise.security.oauth.handler.OAuth2AuthenticationFailureHandler;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -17,33 +19,43 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity // Spring Security 설정 활성화
 public class SecurityConfig {
 
-    private final OAuth2UserService customOAuth2UserService;
+    private final OAuth2UserService oAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler successHandler;
     private final OAuth2AuthenticationFailureHandler failureHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CookieAuthorizationRequestRepository cookieAuthorizationRequestRepository;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .headers().frameOptions().disable()
+                .cors()
                 .and()
-                .authorizeHttpRequests()
+                .httpBasic().disable()
+                .csrf().disable()
+                .formLogin().disable()
+                .rememberMe().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        //요청에 대한 권한 설정
+        http.authorizeHttpRequests()
                 .antMatchers( "/css/**", "/images/**", "/js/**", // 권한 관리 대상 지정
-                        "/login/**", "/token/**", "/oauth-login").permitAll()
+                        "/login/**", "/token/**", "/oauth2/**").permitAll()
                 .antMatchers("/user").hasRole("USER")
                 .and().logout().logoutSuccessUrl("/")
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-                .and()
-                .oauth2Login() // OAuth2기반의 로그인인 경우
-//                .loginPage("/login")// 인증이 필요한 URL에 접근하면 /login으로 이동
+                .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint());
+
+        http.oauth2Login() // OAuth2기반의 로그인인 경우
                 .defaultSuccessUrl("/home") // oauth2 인증 성공하면 이동되는 url
 //                .failureUrl("/login")// 로그인 실패 시 /login으로 이동
-
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
                 .userInfoEndpoint()// 로그인 성공 후 사용자정보를 가져온다
-                .userService(customOAuth2UserService);
+                .userService(oAuth2UserService);
+
+        http.logout()
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID");
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

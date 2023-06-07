@@ -11,6 +11,7 @@ public class UserResponseDto {
 
     private final Long userId;
     private final String nickname;
+    private final String providerId;
     private final int size;
     private final int width;
     private final List<Purchase> purchaseList;
@@ -19,6 +20,7 @@ public class UserResponseDto {
         this.userId = user.getId();
         this.nickname = user.getNickname();
         this.size = user.getSize();
+        this.providerId = user.getProviderId();
         this.width = user.getWidth();
         this.purchaseList = user.getPurchaseList();
     }

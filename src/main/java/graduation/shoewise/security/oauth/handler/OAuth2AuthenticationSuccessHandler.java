@@ -46,16 +46,19 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = determineTargetUrl(request, response, authentication);
         log.info("토큰 발행 시작 ↑ JWT 생성");
-        log.info("targetUrl : " + targetUrl);
+        log.info("targetUrl1 : " + targetUrl);
 
         if (response.isCommitted()) {
             log.debug("Response has already been committed");
             return;
         }
         clearAuthenticationAttributes(request, response);
+        log.info("clearAuthenticationAttributes");
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        log.info("sendRedirect");
     }
 
+    // token을 생성하고 이를 포함한 프론트엔드의 URI를 생성한다.
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) {
         Optional<String> redirectUri = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
@@ -65,13 +68,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throw new BadRequestException("redirect URIs are not matched");
         }
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        log.info("targetUrl: " + targetUrl);
+        log.info("targetUrl2 : " + targetUrl);
 
 
         // JWT 생성
         JwtToken accessToken = tokenProvider.createToken(authentication);
         log.info("OAuth2 SuccessHandler - determineTargetUrl: " + accessToken.getAccessToken());
-        tokenProvider.createRefreshToken(authentication, response);
+        log.info("Refresh Token : " + accessToken.getRefreshToken());
+
+        //tokenProvider.createRefreshToken(authentication, response);
 
         // targetUrl에 accessToken 값을 쿼리 파라미터로 추가한 새로운 URL을 생성
         //생성된 URL은 로그인 성공 후 리다이렉트할 URL에 accessToken 값을 함께 전달
@@ -80,6 +85,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 .build().toUriString();
     }
 
+    // 로그인을 하는 과정에서 한번만에 로그인에 성공할 수도 있지만,
+    // 실패를 한 후 로그인에 성공하는 경우도 있다.
+    // 이처럼 로그인에 실패하는 상황이 한번이라도 발생한다면, 에러가 세션에 저장되어 남아있게 된다.
+    //로그인에 성공했다고 하지만 이렇게 세션에 에러가 남겨진 채로 넘어갈 수는 없다.
+    //따라서 로그인 성공 핸들러에서 에러 세션을 지우는 작업을 해줘야 한다.
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
         authorizationRequestRepository.removeAuthorizationRequestCookies(request, response);

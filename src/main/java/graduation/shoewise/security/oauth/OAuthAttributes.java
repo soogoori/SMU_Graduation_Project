@@ -15,6 +15,7 @@ public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
+    private String providerId;
     private String email;
     private ProviderType provider;
 
@@ -32,6 +33,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
+                .providerId((String)attributes.get("id"))
                 .provider(ProviderType.NAVER)
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
@@ -46,6 +48,7 @@ public class OAuthAttributes {
                 .name((String) account.get("nickname"))
                 .email((String) response.get("email"))
                 .provider(ProviderType.KAKAO)
+                .providerId(attributes.get("id").toString())
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -57,6 +60,7 @@ public class OAuthAttributes {
                 .nickname(name)
                 .email(email)
                 .provider(provider)
+                .providerId(providerId)
                 .role(RoleType.USER)
                 .build();
     }
