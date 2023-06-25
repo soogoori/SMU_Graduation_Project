@@ -16,6 +16,7 @@ import java.util.*;
 
 /**
  * User를 생성자로 전달 받아서 Spring Security에 User 정보 전달
+ * 인증된 spring security 주체를 나타냄.
  */
 @Slf4j
 @Getter
@@ -30,7 +31,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private final ProviderType provider;
     private final Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
-
 
     public static UserPrincipal create(User user) {
         return new UserPrincipal(

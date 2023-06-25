@@ -10,6 +10,7 @@ public class UserResponseDto {
 
     private boolean isMine;
     private Long id;
+    private String email;
     private String nickname;
     private String profileImage;
     private int size;
@@ -19,6 +20,7 @@ public class UserResponseDto {
         return new UserResponseDto(
                 true,
                 user.getId(),
+                user.getEmail(),
                 user.getNickname(),
                 user.getProfileImage(),
                 user.getSize(),
@@ -30,7 +32,7 @@ public class UserResponseDto {
     public static UserResponseDto of(User user, Long userId) {
         return new UserResponseDto(
                 user.isSameId(userId),
-                user.getId(), user.getNickname(), user.getProfileImage(),
-                user.getSize(), user.getWidth());
+                user.getId(), user.getEmail(), user.getNickname(),
+                user.getProfileImage(), user.getSize(), user.getWidth());
     }
 }

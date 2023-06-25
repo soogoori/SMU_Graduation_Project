@@ -1,11 +1,9 @@
 package graduation.shoewise.global.security.jwt;
 
-import graduation.shoewise.global.security.oauth.token.AuthToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,7 +18,6 @@ import java.io.IOException;
  */
 // 로그인시 JWT Token을 확인해 인가된 사용자 유무를 판별하고 내부 process를 수행
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -33,8 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // 1. Request Header 에서 토큰을 꺼냄
-        String tokenStr = JwtHeaderUtil.getAccessToken(request);
+        //요청값의 header에서 토큰을 뽑아온다.
+        String tokenStr = JwtHeaderUtil.getAccessToken(request); // Bearer로 시작하는 값에서 Bearer를 제거한 accessToken(appToken) 반환
+        // String으로 된 token을 AuthToken 객체로 변환해준다
         AuthToken token = tokenProvider.convertAuthToken(tokenStr);
 
         log.info("[Verifying token] - JwtRequestFilter 진입");
@@ -50,5 +48,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
+        // 1. Request Header 에서 토큰을 꺼냄
     }
 }

@@ -12,11 +12,10 @@ import graduation.shoewise.domain.shoes.repository.ShoesRepository;
 import graduation.shoewise.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.print.Pageable;
 
 import static graduation.shoewise.global.config.BaseResponseStatus.INVALID_USER_ID;
 

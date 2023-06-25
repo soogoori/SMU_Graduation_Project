@@ -1,12 +1,19 @@
-package graduation.shoewise.global.security.oauth.token;
+package graduation.shoewise.global.security.jwt;
 
 import graduation.shoewise.domain.enums.RoleType;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 @Slf4j
@@ -15,32 +22,35 @@ public class AuthToken {
 
     @Getter
     private final String token;
-    private final Key key;
 
+    private final Key key;
     private static final String AUTHORITIES_KEY = "role";
 
-    public AuthToken(String id, Date expiry, Key key) {
+    private final Long ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 10;		// 10min 토큰 만료 시간
+
+
+    AuthToken(Long id, Date expiry, Key key) {
         this.key = key;
         this.token = createAuthToken(id, expiry);
     }
 
-    public AuthToken(String id, RoleType roleType, Date expiry, Key key) {
-        String role = roleType.toString(); // USER, ADMIN
+    AuthToken(Long id, RoleType roleType, Date expiry, Key key) {
+        String role = roleType.toString();
         this.key = key;
         this.token = createAuthToken(id, role, expiry);
     }
 
-    private String createAuthToken(String id, Date expiry) {
+    private String createAuthToken(Long id, Date expiry) {
         return Jwts.builder()
-                .setSubject(id)
+                .setSubject(id.toString())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(expiry)
                 .compact();
     }
 
-    private String createAuthToken(String id, String role, Date expiry) {
+    private String createAuthToken(Long id, String role, Date expiry) {
         return Jwts.builder()
-                .setSubject(id)
+                .setSubject(id.toString())
                 .claim(AUTHORITIES_KEY, role)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(expiry)
@@ -54,6 +64,7 @@ public class AuthToken {
 
     //token 유효성 검증
     public Claims getTokenClaims() {
+        log.info("token : " + token);
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)

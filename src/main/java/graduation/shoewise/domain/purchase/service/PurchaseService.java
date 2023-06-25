@@ -51,7 +51,7 @@ public class PurchaseService {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new BaseException(INVALID_USER_ID));
 
-        Purchase purchase = purchaseRepository.findByIdAndNickname(purchaseId, user.getNickname())
+        Purchase purchase = purchaseRepository.findByIdAndName(purchaseId, user.getNickname())
                 .orElseThrow(()->  new IllegalArgumentException("해당 구매목록이 없습니다. purchaseId=" + purchaseId));
 
         purchaseRepository.delete(purchase);
@@ -65,7 +65,7 @@ public class PurchaseService {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new BaseException(INVALID_USER_ID));
 
-        Purchase purchase = purchaseRepository.findByIdAndNickname(purchaseId, user.getNickname())
+        Purchase purchase = purchaseRepository.findByIdAndName(purchaseId, user.getNickname())
                 .orElseThrow(() -> new IllegalArgumentException("해당 구매목록이 없습니다. purchaseId=" + purchaseId));
 
         purchase.update(requestDto);

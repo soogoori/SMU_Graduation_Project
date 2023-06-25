@@ -3,7 +3,6 @@ package graduation.shoewise.global.security.oauth.handler;
 import graduation.shoewise.global.security.cookie.CookieAuthorizationRequestRepository;
 import graduation.shoewise.global.security.cookie.CookieUtil;
 import graduation.shoewise.global.security.exception.BadRequestException;
-import graduation.shoewise.global.security.jwt.JwtToken;
 import graduation.shoewise.global.security.jwt.AuthTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +28,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     @Value("${app.oauth2.authorizedRedirectUri}")
     private String redirectUri;
+
     private final AuthTokenProvider tokenProvider;
     private final CookieAuthorizationRequestRepository authorizationRequestRepository;
 
@@ -52,7 +52,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
         clearAuthenticationAttributes(request, response);
         log.info("clearAuthenticationAttributes");
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        getRedirectStrategy().sendRedirect(request, response, targetUrl); // sendRedirect() 메서드를 이용해 Frontend 애플리케이션 쪽으로 리다이렉트
         log.info("sendRedirect");
     }
 
@@ -68,18 +68,17 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
         log.info("targetUrl2 : " + targetUrl);
 
-
         // JWT 생성
-        JwtToken accessToken = tokenProvider.createToken(authentication);
-        log.info("OAuth2 SuccessHandler - determineTargetUrl: " + accessToken.getAccessToken());
-        log.info("Refresh Token : " + accessToken.getRefreshToken());
+        String accessToken = tokenProvider.createToken(authentication);
+        log.info("OAuth2 SuccessHandler - determineTargetUrl: " + accessToken);
+        //log.info("Refresh Token : " + accessToken);
 
         //tokenProvider.createRefreshToken(authentication, response);
 
         // targetUrl에 accessToken 값을 쿼리 파라미터로 추가한 새로운 URL을 생성
         //생성된 URL은 로그인 성공 후 리다이렉트할 URL에 accessToken 값을 함께 전달
         return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("accessToken", accessToken.getAccessToken())
+                .queryParam("accessToken", accessToken)
                 .build().toUriString();
     }
 

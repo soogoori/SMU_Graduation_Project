@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("graduation.shoewise.controller")) // swagger API 문서로 만들기 원하는 BasePackage 경로.
+                .apis(RequestHandlerSelectors.basePackage("graduation.shoewise.domain")) // swagger API 문서로 만들기 원하는 BasePackage 경로.
                 .paths(PathSelectors.any()) // URL 경로를 지정하여 해당 URL에 해당하는 요청만 Swagger API 문서로 만들기
                 .build();
     }

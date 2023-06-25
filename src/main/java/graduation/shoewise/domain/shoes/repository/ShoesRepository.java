@@ -15,7 +15,7 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long> {
 
     Page<Shoes> findAllByOrderByCreateDateDesc(Pageable pageable);
 
-    Page<Shoes> findAllyByBrandOrderById(Pageable pageable);
+    //Page<Shoes> findAllyByBrandOrderById(Pageable pageable);
 
     // Slice<Shoes> findShoesAll(Pageable pageable); // 무한 스크롤
 

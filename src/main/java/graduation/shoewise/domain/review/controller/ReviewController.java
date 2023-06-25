@@ -6,16 +6,14 @@ import graduation.shoewise.domain.review.dto.ReviewResponseDto;
 import graduation.shoewise.domain.review.dto.ReviewSaveRequestDto;
 import graduation.shoewise.domain.review.dto.ReviewUpdateRequestDto;
 import graduation.shoewise.domain.review.service.ReviewService;
-import graduation.shoewise.global.security.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.print.Pageable;
 import java.net.URI;
 
 @RequiredArgsConstructor

@@ -1,6 +1,7 @@
 package graduation.shoewise.global.config;
 
 import graduation.shoewise.global.security.cookie.CookieAuthorizationRequestRepository;
+import graduation.shoewise.global.security.jwt.AuthTokenProvider;
 import graduation.shoewise.global.security.jwt.JwtAuthenticationEntryPoint;
 import graduation.shoewise.global.security.jwt.JwtAuthenticationFilter;
 import graduation.shoewise.global.security.oauth.handler.OAuth2AuthenticationFailureHandler;
@@ -8,21 +9,22 @@ import graduation.shoewise.global.security.oauth.handler.OAuth2AuthenticationSuc
 import graduation.shoewise.global.security.oauth.service.OAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@RequiredArgsConstructor // 스프링 컨테이너에 빈 등록
-//@Configuration
+@Configuration
 @EnableWebSecurity // Spring Security 설정 활성화
+@RequiredArgsConstructor // 스프링 컨테이너에 빈 등록
 public class SecurityConfig {
 
     private final OAuth2UserService oAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler successHandler;
     private final OAuth2AuthenticationFailureHandler failureHandler;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthTokenProvider authTokenProvider;
     private final CookieAuthorizationRequestRepository cookieAuthorizationRequestRepository;
 
     @Bean
@@ -57,7 +59,7 @@ public class SecurityConfig {
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID");
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(authTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

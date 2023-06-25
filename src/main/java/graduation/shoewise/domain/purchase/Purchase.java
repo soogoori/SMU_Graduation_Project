@@ -34,7 +34,6 @@ public class Purchase {
     @JoinColumn(name="user")
     private User user;
 
-
     public void update(PurchaseRequestDto requestDto) {
         this.name = requestDto.getName();
         this.size = requestDto.getSize();

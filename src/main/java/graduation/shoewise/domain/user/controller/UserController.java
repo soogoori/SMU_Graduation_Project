@@ -5,6 +5,7 @@ import graduation.shoewise.domain.user.dto.UserRequestDto;
 import graduation.shoewise.domain.user.dto.UserResponseDto;
 import graduation.shoewise.global.config.BaseException;
 import graduation.shoewise.domain.user.service.UserService;
+import graduation.shoewise.global.security.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static graduation.shoewise.global.security.jwt.JwtAuthenticationFilter.BEARER_PREFIX;
+import static graduation.shoewise.global.security.jwt.JwtHeaderUtil.BEARER_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Slf4j
@@ -86,9 +87,9 @@ public class UserController {
     @ApiOperation(value = "view user info", notes = "유저 프로필 조회하기")
     @GetMapping("/{userId}")
     public UserResponseDto viewUser(@PathVariable Long userId,
-                                    @AuthenticationPrincipal UserDto userDto) throws Exception {
+                                    @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
 
-        return userService.getUserInfo(userId, userDto.getId());
+        return userService.getUserInfo(userId, userPrincipal.getId());
     }
 
     //내 프로필 조회
