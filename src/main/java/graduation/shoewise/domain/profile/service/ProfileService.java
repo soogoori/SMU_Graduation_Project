@@ -5,7 +5,7 @@ import graduation.shoewise.domain.profile.dto.ProfileResponseDto;
 import graduation.shoewise.domain.purchase.Purchase;
 import graduation.shoewise.domain.purchase.dto.PurchaseResponseDto;
 import graduation.shoewise.domain.purchase.repository.PurchaseRepository;
-import graduation.shoewise.domain.review.Review;
+import graduation.shoewise.domain.review.entity.Review;
 import graduation.shoewise.domain.review.dto.ReviewResponseDto;
 import graduation.shoewise.domain.review.repository.ReviewRepository;
 import graduation.shoewise.domain.user.User;

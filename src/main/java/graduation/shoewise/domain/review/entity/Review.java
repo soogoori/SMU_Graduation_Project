@@ -1,13 +1,12 @@
-package graduation.shoewise.domain.review;
+package graduation.shoewise.domain.review.entity;
 
 import graduation.shoewise.domain.BaseEntity;
-import graduation.shoewise.domain.enums.Feeling;
-import graduation.shoewise.domain.enums.Fit;
+import graduation.shoewise.domain.review.entity.Feeling;
+import graduation.shoewise.domain.review.entity.Fit;
+import graduation.shoewise.domain.review.entity.Width;
 import graduation.shoewise.domain.review.dto.ReviewUpdateRequestDto;
 import graduation.shoewise.domain.shoes.Shoes;
-import graduation.shoewise.domain.enums.Width;
 import graduation.shoewise.domain.user.User;
-import graduation.shoewise.exception.BlankContentException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

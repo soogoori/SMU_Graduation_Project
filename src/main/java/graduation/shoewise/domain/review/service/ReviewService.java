@@ -1,10 +1,8 @@
 package graduation.shoewise.domain.review.service;
 
+import graduation.shoewise.domain.review.dto.*;
 import graduation.shoewise.global.config.BaseException;
-import graduation.shoewise.domain.review.dto.ReviewResponseDto;
-import graduation.shoewise.domain.review.dto.ReviewSaveRequestDto;
-import graduation.shoewise.domain.review.dto.ReviewUpdateRequestDto;
-import graduation.shoewise.domain.review.Review;
+import graduation.shoewise.domain.review.entity.Review;
 import graduation.shoewise.domain.shoes.Shoes;
 import graduation.shoewise.domain.user.User;
 import graduation.shoewise.domain.review.repository.ReviewRepository;
@@ -13,6 +11,7 @@ import graduation.shoewise.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +35,6 @@ public class ReviewService {
 
         /*if (!multipartFile.isEmpty()) {
             image = s3Uploader.upload(multipartFile, "static");
-
         }*/
 
         User user = userRepository.findById(userId)
@@ -48,6 +46,7 @@ public class ReviewService {
         log.info("리뷰 등록 시 사용자 닉네임 : " + user.getNickname());
 
         Review review = reviewRepository.save(requestDto.toEntity(user, shoes));
+        shoesRepository.updateShoesStatisticsForReviewInsert(shoes.getId(), requestDto.getRating());
 
         return new ReviewResponseDto(review).getId();
     }
@@ -59,7 +58,12 @@ public class ReviewService {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다. id=" + id));
 
+        int preRate = review.getRating();
         review.updateReview(requestDto);
+        int updateRate = review.getRating();
+
+        int ratingGap = updateRate-preRate;
+        shoesRepository.updateShoesStatisticsForReviewUpdate(review.getShoes().getId(), ratingGap);
 
         return reviewRepository.save(requestDto.toEntity()).getId();
     }
@@ -73,28 +77,30 @@ public class ReviewService {
     }
 
     // 특정 신발 리뷰 조회
-    public ReviewResponseDto findByShoes(Long shoesId) throws BaseException {
+    public ReviewWithUserPageResponseDto findAllByShoesId(Long shoesId, Long userId,
+                                                           Pageable pageable) throws BaseException {
         Shoes shoes = shoesRepository.findById(shoesId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 신발이 없습니다. id =" + shoesId));
 
-        Review review = reviewRepository.findByShoes(shoes)
-                        .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다."));
+        final Slice<Review> reviews = reviewRepository.findAllByShoesId(shoesId, pageable);
 
-        return new ReviewResponseDto(review);
+        if (userId == null) {
+            return ReviewWithUserPageResponseDto.from(reviews);
+        }
+        return ReviewWithUserPageResponseDto.of(reviews, userId);
     }
 
     // 유저가 작성한 리뷰 조회
-    public ReviewResponseDto findByUser(Long userId,
-                                        Pageable pageable) throws BaseException{
+    public ReviewWithShoesPageResponseDto findReviewsByUserId(Long userId,
+                                                              Pageable pageable) throws BaseException{
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new BaseException(INVALID_USER_ID));
 
         log.info("user : " + user.getNickname());
 
-        Review review = reviewRepository.findByUser(user)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다."));
+        Slice<Review> page = reviewRepository.findReviewByUserId(userId, pageable);
 
-        return new ReviewResponseDto(review);
+        return ReviewWithShoesPageResponseDto.from(page);
     }
 
     // 리뷰 삭제
@@ -102,7 +108,9 @@ public class ReviewService {
     public void delete(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다. reviewId=" + reviewId));
-        reviewRepository.deleteById(reviewId);
-    }
 
+        reviewRepository.deleteById(reviewId);
+
+        shoesRepository.updateShoesStatisticsForReviewDelete(review.getShoes().getId(), review.getRating());
+    }
 }

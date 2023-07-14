@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Getter
@@ -76,12 +77,13 @@ public class User extends BaseEntity {
         this.width=width;
     }
 
+
     public boolean isAdmin() {
         return this.role == RoleType.ADMIN;
     }
 
-    public boolean isSameId(Long userId) {
-        return userId.equals(id);
+    public boolean isSameId(final Long userId) {
+        return Objects.equals(userId, this.id);
     }
 
     public User update(User updateUser) {

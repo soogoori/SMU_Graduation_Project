@@ -1,11 +1,10 @@
 package graduation.shoewise.domain.review.controller;
 
+import graduation.shoewise.domain.review.dto.*;
 import graduation.shoewise.domain.user.dto.UserDto;
 import graduation.shoewise.global.config.BaseException;
-import graduation.shoewise.domain.review.dto.ReviewResponseDto;
-import graduation.shoewise.domain.review.dto.ReviewSaveRequestDto;
-import graduation.shoewise.domain.review.dto.ReviewUpdateRequestDto;
 import graduation.shoewise.domain.review.service.ReviewService;
+import graduation.shoewise.global.security.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,43 +32,39 @@ public class ReviewController {
     @ApiOperation(value = "post review", notes = "리뷰 등록")
     @PostMapping("/shoes/{shoesId}/reviews/")
     public ResponseEntity<ReviewResponseDto> post(@PathVariable Long shoesId,
-                                                  @AuthenticationPrincipal UserDto userDto,
+                                                  @AuthenticationPrincipal UserPrincipal userPrincipal,
                                                   @RequestBody ReviewSaveRequestDto requestDto,
                                                   @RequestPart(value = "image", required = false) MultipartFile multipartFile
     ) throws BaseException {
 
-        Long id = reviewService.save(userDto.getId(), shoesId, requestDto, multipartFile);
+        Long id = reviewService.save(userPrincipal.getId(), shoesId, requestDto, multipartFile);
         return ResponseEntity.created(URI.create("/api/reviews/" + id))
                 .build();
     }
 
-   /* // 신발 상품 클릭 시 리뷰 조회
-    @ApiOperation(value = "view review", notes="리뷰 조회")
-    @GetMapping("/shoes/{shoesId}/reviews")
-    public ReviewResponseDto getReviewByShoesId(@PathVariable Long shoesId,
-                                                Pageable pageable
-                                                ) throws BaseException {
-        return reviewService.findAllByShoesId(id, pageable);
-    }*/
-
     // 사용자가 작성한 리뷰 조회
-    @GetMapping("/reviews")
-    public ReviewResponseDto findByUser(@AuthenticationPrincipal UserDto userDto,
-                                        Pageable pageable) throws BaseException  {
+    @ApiOperation(value = "view user's review", notes="사용자가 작성한 리뷰 조회")
+    @GetMapping("/users/{userId}/reviews")
+    public ReviewWithShoesPageResponseDto getReviewsByUserId(@PathVariable Long userId,
+                                                       Pageable pageable) throws BaseException  {
 
-        return reviewService.findByUser(userDto.getId(), pageable);
+        return reviewService.findReviewsByUserId(userId, pageable);
     }
 
+
     // 특정 신발 리뷰 조회
-    @GetMapping("/{shoesId}/reviews")
-    public ReviewResponseDto findByShoesId(@PathVariable Long shoesId) throws BaseException {
-        return reviewService.findByShoes(shoesId);
+    @ApiOperation(value = "view shoes' review", notes="특정 신발 리뷰 조회")
+    @GetMapping("/shoes/{shoesId}/reviews")
+    public ReviewWithUserPageResponseDto findAllByShoesId(@PathVariable Long shoesId,
+                                                          @AuthenticationPrincipal UserPrincipal userPrincipal,
+                                                          Pageable pageable) throws BaseException {
+        return reviewService.findAllByShoesId(shoesId, userPrincipal.getId(), pageable);
     }
 
 
     // 리뷰 수정
-    @PutMapping("/api/{shoesId}/reviews/{id}")
-    public Long updateReview(@AuthenticationPrincipal UserDto userDto,
+    @PutMapping("/{shoesId}/reviews/{id}")
+    public Long updateReview(@AuthenticationPrincipal UserPrincipal userPrincipal,
                              @PathVariable Long shoesId,
                              @PathVariable Long id,
                              @RequestBody ReviewUpdateRequestDto requestDto) throws BaseException {

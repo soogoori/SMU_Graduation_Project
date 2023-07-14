@@ -1,6 +1,6 @@
 package graduation.shoewise.domain.purchase;
 
-import graduation.shoewise.domain.enums.Fit;
+import graduation.shoewise.domain.review.entity.Fit;
 import graduation.shoewise.domain.purchase.dto.PurchaseRequestDto;
 import graduation.shoewise.domain.user.User;
 import lombok.AllArgsConstructor;

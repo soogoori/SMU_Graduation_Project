@@ -1,19 +1,12 @@
 package graduation.shoewise.domain.shoes;
 
 import graduation.shoewise.domain.BaseEntity;
-import graduation.shoewise.domain.enums.Feeling;
-import graduation.shoewise.domain.enums.Fit;
-import graduation.shoewise.domain.enums.Width;
-import graduation.shoewise.domain.review.Review;
-import graduation.shoewise.domain.shoes.dto.ShoesRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

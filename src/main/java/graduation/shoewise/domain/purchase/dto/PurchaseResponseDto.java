@@ -1,12 +1,9 @@
 package graduation.shoewise.domain.purchase.dto;
 
 import graduation.shoewise.domain.purchase.Purchase;
-import graduation.shoewise.domain.enums.Fit;
+import graduation.shoewise.domain.review.entity.Fit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -24,9 +21,12 @@ public class PurchaseResponseDto {
         this.fit = purchase.getFit();
     }
 
-    /*public static List<PurchaseResponseDto> of(List<Purchase> purchaseList) {
-        return purchaseList.stream()
-                .map(purchase -> new PurchaseResponseDto())
-    }*/
-
+    public static PurchaseResponseDto from(Purchase purchase) {
+        return new PurchaseResponseDto(
+                purchase.getId(),
+                purchase.getName(),
+                purchase.getSize(),
+                purchase.getFit()
+        );
+    }
 }

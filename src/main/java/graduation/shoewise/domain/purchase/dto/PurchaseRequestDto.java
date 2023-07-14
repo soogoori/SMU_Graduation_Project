@@ -1,7 +1,7 @@
 package graduation.shoewise.domain.purchase.dto;
 
 import graduation.shoewise.domain.purchase.Purchase;
-import graduation.shoewise.domain.enums.Fit;
+import graduation.shoewise.domain.review.entity.Fit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

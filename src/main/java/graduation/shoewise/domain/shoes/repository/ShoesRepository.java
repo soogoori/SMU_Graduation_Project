@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ShoesRepository extends JpaRepository<Shoes, Long> {
+public interface ShoesRepository extends JpaRepository<Shoes, Long>, ShoesRepositoryCustom {
 
     List<Shoes> findAllByOrderByCreateDateDesc();
 
@@ -17,7 +17,7 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long> {
 
     //Page<Shoes> findAllyByBrandOrderById(Pageable pageable);
 
-    // Slice<Shoes> findShoesAll(Pageable pageable); // 무한 스크롤
+    Slice<Shoes> findAllShoes(Pageable pageable); // 무한 스크롤
 
     @Query(value = "update Shoes s "
             + "set s.rating = (s.totalRating + :reviewRating) / cast((s.reviewCount + 1) as double), "
@@ -32,14 +32,14 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long> {
             + "s.reviewCount = s.reviewCount - 1, "
             + "s.totalRating = s.totalRating - :reviewRating "
             + "where s.id = :shoesId")
-    void updateProductStatisticsForReviewDelete(Long shoesId, int reviewRating);
+    void updateShoesStatisticsForReviewDelete(Long shoesId, int reviewRating);
 
 
     @Query(value = "update Shoes s "
             + "set s.rating = (s.totalRating + :ratingGap) / cast(s.reviewCount as double), "
             + "s.totalRating = s.totalRating + :ratingGap "
             + "where s.id = :shoesId")
-    void updateProductStatisticsForReviewUpdate(Long shoesId, int ratingGap);
+    void updateShoesStatisticsForReviewUpdate(Long shoesId, int ratingGap);
 
 
 
