@@ -69,6 +69,9 @@ public class Review extends BaseEntity {
         this.rating = requestDto.getRating();
     }
 
+    public void update(String image) {
+        this.image =image;
+    }
     public boolean isWrittenBy(User user){
         return this.user.equals(user);
     }

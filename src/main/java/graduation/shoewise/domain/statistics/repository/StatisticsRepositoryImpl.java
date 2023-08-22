@@ -22,7 +22,7 @@ public class StatisticsRepositoryImpl implements StatisticsRepository {
 
     @Override
     public List<PercentDto.FeelingPercentDto> findFeelingCountByShoesId(Long shoesId) {
-        return jpaQueryFactory.select(new QPercentDto_FeelingPercentDto(review.feeling, review.fit.count()))
+        return jpaQueryFactory.select(new QPercentDto_FeelingPercentDto(review.feeling, review.fit.count().doubleValue()))
                 .from(review)
                 .where(review.shoes.id.eq(shoesId))
                 .groupBy(review.feeling)
@@ -31,7 +31,7 @@ public class StatisticsRepositoryImpl implements StatisticsRepository {
 
     @Override
     public List<PercentDto.FitPercentDto> findFitCountByShoesId(Long shoesId) {
-        return jpaQueryFactory.select(new QPercentDto_FitPercentDto(review.fit, review.fit.count()))
+        return jpaQueryFactory.select(new QPercentDto_FitPercentDto(review.fit, review.fit.count().doubleValue()))
                 .from(review)
                 .where(review.shoes.id.eq(shoesId))
                 .groupBy(review.fit)
@@ -40,7 +40,7 @@ public class StatisticsRepositoryImpl implements StatisticsRepository {
 
     @Override
     public List<PercentDto.WidthDto> findWidthCountByShoesId(Long shoesId) {
-        return jpaQueryFactory.select(new QPercentDto_WidthDto(review.width, review.fit.count()))
+        return jpaQueryFactory.select(new QPercentDto_WidthDto(review.width, review.fit.count().doubleValue()))
                 .from(review)
                 .where(review.shoes.id.eq(shoesId))
                 .groupBy(review.width)

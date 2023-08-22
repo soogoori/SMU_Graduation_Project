@@ -1,6 +1,7 @@
 package graduation.shoewise.domain.review.service;
 
 import graduation.shoewise.domain.review.dto.*;
+import graduation.shoewise.global.S3Uploader;
 import graduation.shoewise.global.config.BaseException;
 import graduation.shoewise.domain.review.entity.Review;
 import graduation.shoewise.domain.shoes.Shoes;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 import static graduation.shoewise.global.config.BaseResponseStatus.INVALID_USER_ID;
 
 @RequiredArgsConstructor
@@ -26,16 +29,18 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final ShoesRepository shoesRepository;
+    private final S3Uploader s3Uploader;
+
 
     // 리뷰 등록
     @Transactional
-    public Long save(Long userId, Long shoesId, ReviewSaveRequestDto requestDto/*, MultipartFile multipartFile*/) throws BaseException {
+    public Long save(Long userId, Long shoesId, ReviewSaveRequestDto requestDto, MultipartFile multipartFile) throws BaseException, IOException {
 
         String image = null;
 
-        /*if (!multipartFile.isEmpty()) {
+        if (!multipartFile.isEmpty()) {
             image = s3Uploader.upload(multipartFile, "static");
-        }*/
+        }
 
         User user = userRepository.findById(userId)
                 .orElseThrow(()->new BaseException(INVALID_USER_ID));
@@ -46,7 +51,7 @@ public class ReviewService {
         log.info("리뷰 등록 시 사용자 닉네임 : " + user.getNickname());
 
         if(reviewRepository.findByUserIdAndShoes(user.getId(), shoes.getId()).isEmpty()){
-            Review review = reviewRepository.save(requestDto.toEntity(user, shoes));
+            Review review = reviewRepository.save(requestDto.toEntity(user, shoes, image));
             shoesRepository.updateShoesStatisticsForReviewInsert(shoes.getId(), requestDto.getRating());
 
             log.info("신발 평점 : " + shoes.getAvgRating());
@@ -60,7 +65,7 @@ public class ReviewService {
 
     // 리뷰 수정
     @Transactional
-    public Long update(Long id, Long userId, ReviewUpdateRequestDto requestDto) throws BaseException {
+    public Long update(Long id, Long userId, ReviewUpdateRequestDto requestDto, MultipartFile multipartFile) throws BaseException, IOException {
 
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다. id=" + id));
@@ -86,6 +91,17 @@ public class ReviewService {
         log.info("RatingGap : " + ratingGap);
         shoesRepository.updateShoesStatisticsForReviewUpdate(review.getShoes().getId(), ratingGap);
 
+        String image = null;
+        if (!multipartFile.isEmpty()) { // 사진이 수정된 경우
+            image = (s3Uploader.upload(multipartFile, "review"));// 새로들어온 이미지 s3 저장
+            Review reviews = reviewRepository.findById(id).orElseThrow(
+                    () -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다.")
+            );
+            if (!review.getImage().equals("")) {
+                s3Uploader.delete(review.getImage(), "review");  // 이전 이미지 파일 삭제
+            }
+            reviews.update(image);
+        }
         return reviewRepository.save(requestDto.toEntity()).getId();
     }
 

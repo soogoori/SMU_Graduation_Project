@@ -41,12 +41,14 @@ public class PurchaseService {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new BaseException(INVALID_USER_ID));
 
-        Purchase purchase = purchaseRepository.save(requestDto.toEntity());
+        log.info("구매목록을 등록하는 유저 : " + user.getEmail());
+
+        Purchase purchase = purchaseRepository.save(requestDto.toEntity(user));
 
         return new PurchaseResponseDto(purchase);
     }
 
-    // 구매목록 삭제  --> TODO: 해당 구매목록이 없다고 나옴.ㅜㅜ
+    // 구매목록 삭제
     @Transactional
     public PurchaseResponseDto delete(Long userId, Long purchaseId) throws BaseException {
         User user = userRepository.findById(userId)
@@ -57,7 +59,8 @@ public class PurchaseService {
         log.info("user's email : " + user.getEmail());
 
         Purchase purchase = purchaseRepository.findByIdAndUserId(purchaseId, user.getId())
-                .orElseThrow(()->  new IllegalArgumentException("해당 구매목록이 없습니다. purchaseId=" + purchaseId));
+                .orElseThrow(()-> new IllegalArgumentException("해당 구매목록이 없습니다. purchaseId=" + purchaseId));
+
 
         purchaseRepository.delete(purchase);
 

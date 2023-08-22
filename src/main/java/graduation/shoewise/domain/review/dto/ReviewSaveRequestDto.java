@@ -31,11 +31,11 @@ public class ReviewSaveRequestDto {
     @NotNull(message = "발볼이 잘 맞는지 알려주세요")
     private Width width;
 
-    public Review toEntity(User user, Shoes shoes) {
+    public Review toEntity(User user, Shoes shoes, String image) {
         return Review.builder()
                 .user(user)
                 .shoes(shoes)
-                .image(this.image)
+                .image(image)
                 .content(this.content)
                 .rating(this.rating)
                 .feeling(this.feeling)

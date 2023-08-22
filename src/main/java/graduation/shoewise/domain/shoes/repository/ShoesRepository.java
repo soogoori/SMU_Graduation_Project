@@ -15,6 +15,9 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long>, ShoesReposi
 
     List<Shoes> findAllByOrderByCreateDateDesc();
 
+    Slice<Shoes> findAllByBrand(Pageable pageable, String brand);
+    Slice<Shoes> findAllByName(Pageable pageable, String name);
+
     @Modifying
     @Query(value = "update Shoes s "
             + "set s.avgRating = (s.totalRating + :reviewRating) / cast((s.reviewCount + 1) as double), "

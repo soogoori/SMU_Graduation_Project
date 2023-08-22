@@ -7,7 +7,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableJpaAuditing
-@SpringBootApplication
+@SpringBootApplication(
+		exclude = {
+				org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration.class,
+				org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration.class,
+				org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration.class
+		}
+)
 public class ShoeWiseApplication {
 
 	// 비밀번호 보안 때문에 !! → 내용 보충 필요

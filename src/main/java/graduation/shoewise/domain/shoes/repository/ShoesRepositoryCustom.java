@@ -7,4 +7,6 @@ import org.springframework.data.domain.Slice;
 public interface ShoesRepositoryCustom {
 
     Slice<Shoes> getShoesAll(Pageable pageable);
+
+    Slice<Shoes> getShoesByCategory(Pageable pageable, String brand);
 }

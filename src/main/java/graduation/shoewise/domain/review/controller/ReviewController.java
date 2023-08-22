@@ -8,10 +8,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.net.URI;
 
 @RequiredArgsConstructor
@@ -24,14 +27,13 @@ public class ReviewController {
 
     // 리뷰 등록
     @ApiOperation(value = "post review", notes = "리뷰 등록")
-    @PostMapping("/shoes/{shoesId}/reviews")
+    @PostMapping(value = "/shoes/{shoesId}/reviews")
     public void post(@PathVariable Long shoesId,
-                                                  @AuthenticationPrincipal UserPrincipal userPrincipal,
-                                                  @RequestBody ReviewSaveRequestDto requestDto
-                                                  //@RequestPart(value = "image", required = false) MultipartFile multipartFile
-    ) throws BaseException {
+                     @AuthenticationPrincipal UserPrincipal userPrincipal,
+                     @RequestPart ReviewSaveRequestDto requestDto,
+                     @RequestPart(value = "image", required = false) MultipartFile multipartFile) throws BaseException, IOException {
 
-        reviewService.save(userPrincipal.getId(), shoesId, requestDto/*, multipartFile*/);
+        reviewService.save(userPrincipal.getId(), shoesId, requestDto, multipartFile);
     }
 
     // 사용자가 작성한 리뷰 조회
@@ -54,18 +56,21 @@ public class ReviewController {
 
 
     // 리뷰 수정
+    @ApiOperation(value = "update shoes' review", notes="특정 신발 리뷰 수정")
     @PutMapping("/{shoesId}/reviews/{id}")
     public Long updateReview(@AuthenticationPrincipal UserPrincipal userPrincipal,
                              @PathVariable Long shoesId,
                              @PathVariable Long id,
-                             @RequestBody ReviewUpdateRequestDto requestDto) throws BaseException {
+                             @RequestPart ReviewUpdateRequestDto requestDto,
+                             @RequestPart(value = "image" ,required = false) MultipartFile multipartFile) throws BaseException, IOException {
 
 
-        return reviewService.update(id, userPrincipal.getId(), requestDto);
+        return reviewService.update(id, userPrincipal.getId(), requestDto, multipartFile);
     }
 
 
     // 리뷰 삭제
+    @ApiOperation(value = "delete shoes' review", notes="특정 신발 리뷰 삭제")
     @DeleteMapping("/api/{shoesId}/reviews/{id}")
     public void deleteReview(@PathVariable Long shoesId, @PathVariable Long id){
         reviewService.delete(id);

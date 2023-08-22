@@ -27,8 +27,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private RoleType roleType;
     private ProviderType providerType;
     private Collection<? extends GrantedAuthority> authorities;
-
-    @Setter
     private Map<String, Object> attributes;
 
     public UserPrincipal(Long id, String email, Collection<? extends GrantedAuthority> authorities) {

@@ -36,7 +36,7 @@ public class StatisticsService {
         log.info("착화감 통계 내는 중, totalCnt = " + totalCount);
 
         for (PercentDto.FeelingPercentDto feelingCount : feelingCounts) {
-            feelingCount.setCount(feelingCount.getCount()/totalCount*100);
+            feelingCount.setCount(feelingCount.getCount()/(double)totalCount*100);
             log.info("feelingCount.getCount() : " + feelingCount.getCount());
             log.info("착화감 통계 내는 중 - Feeling & FeelingCount : " + feelingCount.getFeeling() + " " + feelingCount.getCount());
         }
