@@ -12,6 +12,7 @@ public class ShoesRegisterResponseDto {
     private String name;
     private String brand;
     private String image;
+    private String productCode;
     //private List<ReviewResponseDto> reviewList = new ArrayList<>();
 
     public ShoesRegisterResponseDto(Shoes shoes){
@@ -19,5 +20,6 @@ public class ShoesRegisterResponseDto {
         this.name=shoes.getName();
         this.brand=shoes.getBrand();
         this.image = shoes.getImage();
+        this.productCode = shoes.getProductCode();
     }
 }

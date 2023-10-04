@@ -142,10 +142,17 @@ public class ReviewService {
 
     // 리뷰 삭제
     @Transactional
-    public void delete(Long reviewId) {
+    public void delete(Long reviewId, Long userId) throws BaseException, IOException{
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다. reviewId=" + reviewId));
 
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new BaseException(INVALID_USER_ID));
+
+        if(!review.isWrittenBy(user)){
+            System.out.println("유저 접근 금지");
+            throw new IllegalArgumentException("해당 유저가 아닙니당");
+        }
         reviewRepository.deleteById(reviewId);
 
         shoesRepository.updateShoesStatisticsForReviewDelete(review.getShoes().getId(), review.getRating());

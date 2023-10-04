@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #fff;
+    height: 100%;
+}
+
+.home-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    flex-direction: column;
+}
+
+.home-container h1{
+    font-family: 'GmarketSansBold', sans-serif;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.shoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 16px;
+    padding: 16px;
+    width: 100%;
+}
+
+.shoe-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shoe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.shoe-details {
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+.shoe-details h2 {
+    font-size: 1.2rem;
+    font-family: 'DoHyeon', sans-serif;
+    margin-bottom: 8px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.shoe-details p {
+    margin: 4px 0;
+    font-size: 0.8rem;
+    color: #262424;
+    text-align: center;
+}
+
+.loader {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: left;
+    margin: 0;
+}

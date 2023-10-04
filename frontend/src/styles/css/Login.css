@@ -1,0 +1,63 @@
+body,
+h1,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('../../routes/home_shoes.png');
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+!* Header styles *!
+header {
+    position: relative;
+    background-color: transparent;
+    padding: 20px;
+    z-index: 9999;
+    text-align: left;
+}
+
+.logo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+!* Main content styles *!
+h1 {
+    font-size: 100px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.button {
+    padding: 20px 40px;
+    background-color: white;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50px;
+}
+*/

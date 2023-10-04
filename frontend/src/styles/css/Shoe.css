@@ -1,0 +1,29 @@
+.shoe-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shoe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.shoe-details {
+    margin-top: 16px;
+}
+
+.shoe-details h2 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.shoe-details p {
+    margin: 4px 0;
+    font-size: 0.8rem;
+    color: #555;
+    text-align: center;
+}

@@ -24,6 +24,8 @@ public class Shoes extends BaseEntity {
 
     private String brand;
 
+    private String productCode;
+
     private String image;
 
     private int reviewCount;
@@ -56,6 +58,12 @@ public class Shoes extends BaseEntity {
     public void updateImage(String image) {
         if (image != null) {
             this.image = image;
+        }
+    }
+
+    public void updateProductCode(String productCode){
+        if(productCode!=null){
+            this.productCode = productCode;
         }
     }
 

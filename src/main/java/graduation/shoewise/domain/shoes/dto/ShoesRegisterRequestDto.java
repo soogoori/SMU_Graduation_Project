@@ -18,11 +18,14 @@ public class ShoesRegisterRequestDto {
 
     String brand;
 
+    String productCode;
+
     public Shoes toEntity(String image){
         return Shoes.builder()
                 .name(name)
                 .brand(brand)
                 .image(image)
+                .productCode(productCode)
                 .build();
     }
 }

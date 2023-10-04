@@ -4,12 +4,11 @@ import graduation.shoewise.domain.user.dto.UserRequestDto;
 import graduation.shoewise.domain.user.dto.UserResponseDto;
 import graduation.shoewise.global.config.BaseException;
 import graduation.shoewise.domain.user.service.UserService;
-import graduation.shoewise.global.security.oauth.service.UserPrincipal;
+import graduation.shoewise.global.security.oauth.service.SecurityUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -36,10 +35,11 @@ public class UserController {
     // 프로필 수정 -> ProfileController에 있는 것과 이거 중에 선택하기.......
     @ApiOperation(value = "update my info", notes = "내 정보 수정하기 - 닉네임, 발사이즈, 발폭 등")
     @PutMapping("/me")
-    public ResponseEntity<Void> updateMe (@RequestBody UserRequestDto requestDto,
-                                          @AuthenticationPrincipal UserPrincipal userPrincipal) throws BaseException {
+    public ResponseEntity<Void> updateMe (@RequestBody UserRequestDto requestDto) throws BaseException {
 
-        userService.updateUser(userPrincipal.getId(), requestDto);
+        Long userId = SecurityUtil.getCurrentMemberPk();
+
+        userService.updateUser(userId, requestDto);
 
         return ResponseEntity.ok().build();
     }
@@ -47,22 +47,20 @@ public class UserController {
     //사용자 프로필 조회
     @ApiOperation(value = "view user info", notes = "유저 프로필 조회하기")
     @GetMapping("/{userId}")
-    public UserResponseDto viewUser(@PathVariable Long userId,
-                                    @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
+    public UserResponseDto viewUser(@PathVariable Long userId) throws Exception {
 
-        log.info("사용자 프로필 조회 유저 프린시플 : " + userPrincipal.getUsername());
-        log.info("사용자 프로필 조회 유저 프린시플 : " + userPrincipal.getId());
-        log.info("사용자 프로필 조회 유저 프린시플 : " + userPrincipal.getEmail());
+        Long memberId = SecurityUtil.getCurrentMemberPk();
 
-        return userService.getUserInfo(userId, userPrincipal.getId());
+        return userService.getUserInfo(userId, memberId);
     }
 
     //내 프로필 조회
     @ApiOperation(value = "view my info", notes = "내 프로필 조회하기")
     @GetMapping("/me")
-    public ResponseEntity<UserResponseDto> viewMyInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
+    public ResponseEntity<UserResponseDto> viewMyInfo() throws Exception {
 
-        UserResponseDto userResponseDto = userService.getMyInfo(userPrincipal.getId());
+        Long userId = SecurityUtil.getCurrentMemberPk();
+        UserResponseDto userResponseDto = userService.getMyInfo(userId);
         return ResponseEntity.ok().body(userResponseDto);
     }
 

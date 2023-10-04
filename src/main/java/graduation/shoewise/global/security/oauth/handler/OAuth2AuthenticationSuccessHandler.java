@@ -78,9 +78,17 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         // targetUrl에 accessToken 값을 쿼리 파라미터로 추가한 새로운 URL을 생성
         //생성된 URL은 로그인 성공 후 리다이렉트할 URL에 accessToken 값을 함께 전달
-        return UriComponentsBuilder.fromUriString(targetUrl)
+        /*return UriComponentsBuilder.fromUriString(targetUrl)
+                .queryParam("accessToken", tokenInfo.getAccessToken())
+                .build().toUriString();*/
+
+        /*return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect/"+tokenInfo.getAccessToken())
+                .build().toUriString();*/
+
+        return UriComponentsBuilder.fromUriString("http://localhost:3000/join")
                 .queryParam("accessToken", tokenInfo.getAccessToken())
                 .build().toUriString();
+
     }
 
     // 로그인을 하는 과정에서 한번만에 로그인에 성공할 수도 있지만,

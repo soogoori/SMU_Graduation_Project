@@ -6,6 +6,7 @@ import graduation.shoewise.domain.purchase.dto.PurchaseWithUserPageResponse;
 import graduation.shoewise.domain.review.dto.ReviewResponseDto;
 import graduation.shoewise.domain.review.dto.ReviewWithUserPageResponseDto;
 import graduation.shoewise.domain.user.service.UserService;
+import graduation.shoewise.global.security.oauth.service.SecurityUtil;
 import graduation.shoewise.global.security.oauth.service.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -40,19 +41,19 @@ public class ProfileController {
     //프로필 조회 - 내가 작성한 리뷰
     @ApiOperation(value = "view user review", notes = "내가 작성한 리뷰 조회하기")
     @GetMapping("/me/reviews")
-    public ReviewWithUserPageResponseDto getMyReview(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                                     Pageable pageable) throws Exception {
+    public ReviewWithUserPageResponseDto getMyReview(Pageable pageable) throws Exception {
+        Long userId = SecurityUtil.getCurrentMemberPk();
 
-        return profileService.getMyReview(userPrincipal.getId(), pageable);
+        return profileService.getMyReview(userId, pageable);
     }
 
     //프로필 조회 - 내가 구매한 목록
     @ApiOperation(value = "view user purchase list", notes = "내가 구매한 목록 조회하기")
     @GetMapping("/me/purchases")
-    public PurchaseWithUserPageResponse getMyPurchase(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                                      Pageable pageable) throws Exception {
+    public PurchaseWithUserPageResponse getMyPurchase(Pageable pageable) throws Exception {
+        Long userId = SecurityUtil.getCurrentMemberPk();
 
-        return profileService.getMyPurchase(userPrincipal.getId(), pageable);
+        return profileService.getMyPurchase(userId, pageable);
     }
 
 

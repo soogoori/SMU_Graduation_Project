@@ -14,6 +14,7 @@ import java.util.List;
 public class ShoesResponseDto {
     private Long id;
     private String name;
+    private String productCode;
     private String brand;
     private String image;
     private int reviewCnt;
@@ -23,6 +24,7 @@ public class ShoesResponseDto {
         return new ShoesResponseDto(
                 shoes.getId(),
                 shoes.getName(),
+                shoes.getProductCode(),
                 shoes.getBrand(),
                 shoes.getImage(),
                 shoes.getReviewCount(),

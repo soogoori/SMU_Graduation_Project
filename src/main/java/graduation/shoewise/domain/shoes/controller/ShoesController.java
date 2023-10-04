@@ -36,9 +36,9 @@ public class ShoesController {
         return shoesService.getShoesAll(pageable);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/category/{brand}")
     @ApiOperation(value = "get shoes by category", notes = "신발 카테고리별 게시물 전체 조회")
-    public ShoesPageResponse getShoesByCategory(final Pageable pageable, @RequestParam String brand){
+    public ShoesPageResponse getShoesByCategory(final Pageable pageable, @PathVariable String brand){
         log.info("brand : " + brand);
         return shoesService.getShoesByCategory(pageable, brand);
     }

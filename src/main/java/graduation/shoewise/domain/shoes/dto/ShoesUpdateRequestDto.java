@@ -16,11 +16,14 @@ public class ShoesUpdateRequestDto {
 
     String brand;
 
+    String productCode;
+
     public Shoes toEntity(){
         return Shoes.builder()
                 .name(name)
                 .brand(brand)
                 .image(image)
+                .productCode(productCode)
                 .build();
     }
 }

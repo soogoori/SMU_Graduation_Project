@@ -75,8 +75,8 @@ public class ShoesService {
 
     // 신발 카테고리별 조회
     public ShoesPageResponse getShoesByCategory(Pageable pageable, String brand) {
-        final Slice<Shoes> page = shoesRepository.getShoesByCategory(pageable, brand);
-        //final Slice<Shoes> page = shoesRepository.findAllByBrand(pageable, brand);
+        //final Slice<Shoes> page = shoesRepository.getShoesByCategory(pageable, brand);
+        final Slice<Shoes> page = shoesRepository.findAllByBrand(pageable, brand);
         return ShoesPageResponse.from(page);
     }
 

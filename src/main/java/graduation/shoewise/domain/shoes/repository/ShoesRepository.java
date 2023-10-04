@@ -15,7 +15,8 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long>, ShoesReposi
 
     List<Shoes> findAllByOrderByCreateDateDesc();
 
-    Slice<Shoes> findAllByBrand(Pageable pageable, String brand);
+    @Query(value = "select s from Shoes s where s.brand = :brand")
+    Slice<Shoes> findAllByBrand(Pageable pageable, @Param("brand") String brand);
     Slice<Shoes> findAllByName(Pageable pageable, String name);
 
     @Modifying

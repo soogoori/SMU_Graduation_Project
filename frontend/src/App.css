@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+
+.app-container {
+  margin-top: 60px; /* Navbar의 높이만큼 여백을 추가합니다. */
+}

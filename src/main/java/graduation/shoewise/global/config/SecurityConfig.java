@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .and()
                 .redirectionEndpoint().baseUri("/oauth2/callback/*")  // 소셜 인증 후 redirect url
                 .and()*/
+                .defaultSuccessUrl("/home")
                 .userInfoEndpoint()// 로그인 성공 후 사용자정보를 가져온다
                 .userService(oAuth2UserService)
                 .and()

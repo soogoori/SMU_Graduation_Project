@@ -3,6 +3,7 @@ package graduation.shoewise.domain.shoes.controller;
 import graduation.shoewise.domain.shoes.dto.*;
 import graduation.shoewise.domain.shoes.service.ShoesService;
 import graduation.shoewise.domain.user.dto.UserDto;
+import graduation.shoewise.global.security.oauth.service.SecurityUtil;
 import graduation.shoewise.global.security.oauth.service.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -60,8 +61,10 @@ public class ShoesAdminController {
     @DeleteMapping("/{shoesId}")
     @ApiOperation(value = "delete shoes", notes = "신발 게시물 삭제")
 
-    public void delete(@AuthenticationPrincipal UserPrincipal userPrincipal, @PathVariable Long shoesId) {
-        shoesService.deleteShoes(shoesId, userPrincipal.getId());
+    public void delete(@PathVariable Long shoesId) {
+
+        Long userId = SecurityUtil.getCurrentMemberPk();
+        shoesService.deleteShoes(shoesId, userId);
     }
 
 

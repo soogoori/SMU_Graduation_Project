@@ -1,0 +1,130 @@
+.logincontainer{
+    text-align: center;
+    margin-top: 10px;
+}
+.logoimg{
+    width: 300px;
+    margin-left: 20px;
+}
+.loginbox{
+    /*border: 1px solid #d0d0d0;*/
+    border-radius: 5px;
+    /*padding: 40px 20px;*/
+    margin: 30px;
+}
+
+.logoutcontainer{
+    z-index: 100;
+    position: fixed;
+    height: 180px;
+    margin: 120px auto;
+    background-color: rgba(236, 236, 236, 0.926);
+}
+
+.joincontainer{
+    position: fixed;
+    height: 230px;
+    background-color: rgba(236, 236, 236, 0.926);
+    margin: 120px auto;
+}
+
+.logoutcontainer, .joincontainer{
+    text-align: center;
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+
+    /*right: 50%;
+    top: 10%;*/
+    top: 30%; /* 수직 가운데 정렬을 위해 화면 상단에서 50% 떨어진 위치 */
+    left: 50%; /* 수평 가운데 정렬을 위해 화면 왼쪽에서 50% 떨어진 위치 */
+    transform: translate(-50%, -50%); /* 모달을 정중앙으로 이동 */
+}
+
+
+.logoutAsk {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.loginSuccess{
+    font-family: 'GmarketSansBold', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+.buttons {
+    /*border: 1px solid #000000;*/
+    width: 450px;
+    margin: 0 auto;
+}
+.kakao{
+    width: 100%;
+    border: 1px solid #000000;
+    cursor: pointer;
+    padding: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.kakao {
+    background: rgb(255, 255, 255)
+    url('../../../public/kakao_logo.svg')
+    no-repeat 15px center / 50px 50px padding-box border-box;
+    background-size: 25px; /* 로고 크기 */
+
+    border: 1px solid rgb(0, 0, 0);
+}
+.kakao:hover {
+    background: rgb(250, 225, 0)
+    url('../../../public/kakao_logo.svg')
+    no-repeat 15px center / 50px 50px padding-box border-box;
+    background-size: 25px; /* 로고 크기 */
+    border-color: rgb(250, 225, 0);
+}
+
+
+
+.no,
+.yes {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+    width: 150px;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.no {
+    background-color: white;
+}
+
+.yes {
+    background-color: #121213;
+    color: white;
+}
+
+.loginHello {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+}
+
+.cont {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+    width: 300px;
+    padding : 5px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.cont:hover{
+    background-color: #121213;
+    color: #f0f0f0;
+}

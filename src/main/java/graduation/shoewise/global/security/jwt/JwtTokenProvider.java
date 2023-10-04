@@ -17,10 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -54,6 +53,7 @@ public class JwtTokenProvider {
 
     //name, authorities 를 가지고 AccessToken, RefreshToken 을 생성하는 메서드
     public UserTokenDto.TokenInfo generateToken(String name, Collection<? extends GrantedAuthority> inputAuthorities) {
+
         //권한 가져오기
         String authorities = inputAuthorities.stream()
                 .map(GrantedAuthority::getAuthority)
@@ -61,9 +61,14 @@ public class JwtTokenProvider {
 
         Date now = new Date();
 
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("type", "token");
+
+
         //Generate AccessToken
         String accessToken = Jwts.builder()
                 .setSubject(name)
+                .setHeader(headers)
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("type", TYPE_ACCESS)
                 .setIssuedAt(now)   //토큰 발행 시간 정보
@@ -152,4 +157,15 @@ public class JwtTokenProvider {
         }
         return null;
     }
+
+    /*public String resolveToken(HttpServletRequest request) {
+        log.info("request.getHeader: " + request.getHeader("Authorization"));
+        return request.getHeader("Authorization");
+    }*/
+
+    // 엑세스 토큰 헤더 설정
+    public void setHeaderAccessToken(HttpServletResponse response, String accessToken) {
+        response.setHeader("authorization", "Bearer " + accessToken);
+    }
+
 }

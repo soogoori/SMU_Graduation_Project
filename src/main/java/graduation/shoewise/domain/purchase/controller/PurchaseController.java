@@ -5,6 +5,7 @@ import graduation.shoewise.domain.purchase.dto.PurchaseResponseDto;
 import graduation.shoewise.domain.purchase.dto.PurchaseWithUserPageResponse;
 import graduation.shoewise.domain.purchase.service.PurchaseService;
 import graduation.shoewise.global.config.BaseException;
+import graduation.shoewise.global.security.oauth.service.SecurityUtil;
 import graduation.shoewise.global.security.oauth.service.UserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,10 @@ public class PurchaseController {
     // 구매목록 등록
     @ApiOperation(value = "save purchase", notes = "구매목록 등록")
     @PostMapping
-    public PurchaseResponseDto savePurchase(@AuthenticationPrincipal UserPrincipal userPrincipal,
-                                            @RequestBody PurchaseRequestDto requestDto) throws BaseException {
-        return purchaseService.save(userPrincipal.getId(), requestDto);
+    public PurchaseResponseDto savePurchase(@RequestBody PurchaseRequestDto requestDto) throws BaseException {
+
+        Long userId = SecurityUtil.getCurrentMemberPk();
+        return purchaseService.save(userId, requestDto);
     }
 
     // 구매목록 조회 (전체 조회)
@@ -39,9 +41,9 @@ public class PurchaseController {
     // 구매목록 삭제
     @ApiOperation(value = "delete purchase", notes = "구매목록 삭제")
     @DeleteMapping("/{purchaseId}")
-    public ResponseEntity<PurchaseResponseDto> deletePurchase(@PathVariable Long purchaseId,
-                                                              @AuthenticationPrincipal UserPrincipal userPrincipal) throws BaseException {
-        return ResponseEntity.ok(purchaseService.delete(userPrincipal.getId(), purchaseId));
+    public ResponseEntity<PurchaseResponseDto> deletePurchase(@PathVariable Long purchaseId) throws BaseException {
+        Long userId = SecurityUtil.getCurrentMemberPk();
+        return ResponseEntity.ok(purchaseService.delete(userId, purchaseId));
     }
 
 
@@ -49,8 +51,9 @@ public class PurchaseController {
     @ApiOperation(value = "update purchase", notes = "구매목록 수정")
     @PutMapping("/{purchaseId}")
     public ResponseEntity<PurchaseResponseDto> updatePurchase(@PathVariable Long purchaseId,
-                                                              @AuthenticationPrincipal UserPrincipal userPrincipal,
                                                               @RequestBody PurchaseRequestDto requestDto) throws BaseException {
-        return ResponseEntity.ok(purchaseService.updatePurchase(userPrincipal.getId(), purchaseId, requestDto));
+
+        Long userId = SecurityUtil.getCurrentMemberPk();
+        return ResponseEntity.ok(purchaseService.updatePurchase(userId, purchaseId, requestDto));
     }
 }

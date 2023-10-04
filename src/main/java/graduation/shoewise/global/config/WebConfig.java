@@ -1,6 +1,7 @@
 package graduation.shoewise.global.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,8 +15,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        CorsConfiguration corsConfiguration;
+
         registry.addMapping("/**")
-                .allowedOrigins("/*") //외부에서 들어오는 모든 url 허용
+                .allowedOrigins("http://localhost:3000") //외부에서 들어오는 모든 url 허용
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") //허용되는 Method
                 .allowedHeaders("*")  //허용되는 헤더
                 .allowCredentials(true)
