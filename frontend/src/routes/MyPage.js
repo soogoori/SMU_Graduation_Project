@@ -16,7 +16,12 @@ const MyPage = () => {
     useEffect(() => {
         const fetchUserShoes = async () => {
             try {
-                const response = await axios.get('/api/users/me/purchases');
+                const response = await axios.get('/api/users/me/purchases', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
                 const { hasNext, purchase } = response.data;
                 setShoesData(purchase);
                 setLoading(false);
