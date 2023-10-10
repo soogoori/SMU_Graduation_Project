@@ -16,12 +16,11 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <Link to="/home">SHOEWISE</Link>
+                <Link to="/home" >SHOEWISE</Link>
             </div>
             <div className="navbar-right">
                 <Link to="/shoes">Product</Link>
                 <Link to="/mypage">Mypage</Link>
-                <Link to="/profile">Profile</Link>
                 {isLoggedIn ? (
                     // 로그인 상태일 때만 "Logout" 링크를 보여줍니다.
                     <Link to="/logout">Logout</Link>

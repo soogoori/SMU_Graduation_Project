@@ -34,13 +34,13 @@ public class ReviewService {
 
     // 리뷰 등록
     @Transactional
-    public Long save(Long userId, Long shoesId, ReviewSaveRequestDto requestDto, MultipartFile multipartFile) throws BaseException, IOException {
+    public Long save(Long userId, Long shoesId, ReviewSaveRequestDto requestDto/*, MultipartFile multipartFile*/) throws BaseException, IOException {
 
         String image = null;
 
-        if (!multipartFile.isEmpty()) {
+       /* if (!multipartFile.isEmpty()) {
             image = s3Uploader.upload(multipartFile, "static");
-        }
+        }*/
 
         User user = userRepository.findById(userId)
                 .orElseThrow(()->new BaseException(INVALID_USER_ID));
@@ -153,8 +153,14 @@ public class ReviewService {
             System.out.println("유저 접근 금지");
             throw new IllegalArgumentException("해당 유저가 아닙니당");
         }
+        shoesRepository.updateShoesStatisticsForReviewDelete(review.getShoes().getId(), review.getRating());
         reviewRepository.deleteById(reviewId);
 
-        shoesRepository.updateShoesStatisticsForReviewDelete(review.getShoes().getId(), review.getRating());
+        log.info("updateShoesStatisticsForReviewDelete 진입시도");
+        log.info("해당 신발 리뷰 수 변경전: " + review.getShoes().getReviewCount());
+
+        log.info("updateShoesStatisticsForReviewDelete 진입완료");
+        log.info("해당 신발 리뷰 수 변경 후: " + review.getShoes().getReviewCount());
+
     }
 }

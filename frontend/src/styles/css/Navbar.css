@@ -44,3 +44,9 @@
 .navbar-right a:nth-child(4) {
     text-decoration: none; /* 밑줄 없앰 */
 }
+
+/* 활성화된 링크의 배경색을 변경합니다. */
+.active-link {
+    color: #b65151; /* 원하는 색상으로 변경하세요. */
+    /* 다른 스타일을 추가할 수 있습니다. */
+}

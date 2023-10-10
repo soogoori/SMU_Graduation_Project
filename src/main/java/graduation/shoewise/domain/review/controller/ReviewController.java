@@ -31,12 +31,12 @@ public class ReviewController {
     @ApiOperation(value = "post review", notes = "리뷰 등록")
     @PostMapping(value = "/shoes/{shoesId}/reviews")
     public void post(@PathVariable Long shoesId,
-                     @RequestPart ReviewSaveRequestDto requestDto,
-                     @RequestPart(value = "image", required = false) MultipartFile multipartFile) throws BaseException, IOException {
+                     @RequestBody ReviewSaveRequestDto requestDto/*,
+                     @RequestPart(value = "image", required = false) MultipartFile multipartFile*/) throws BaseException, IOException {
 
         Long userId = SecurityUtil.getCurrentMemberPk();
 
-        reviewService.save(userId, shoesId, requestDto, multipartFile);
+        reviewService.save(userId, shoesId, requestDto/*, multipartFile*/);
     }
 
     // 사용자가 작성한 리뷰 조회
@@ -75,7 +75,7 @@ public class ReviewController {
 
     // 리뷰 삭제
     @ApiOperation(value = "delete shoes' review", notes="특정 신발 리뷰 삭제")
-    @DeleteMapping("/api/{shoesId}/reviews/{id}")
+    @DeleteMapping("/{shoesId}/reviews/{id}")
     public void deleteReview(@PathVariable Long shoesId, @PathVariable Long id) throws BaseException, IOException {
         Long userId = SecurityUtil.getCurrentMemberPk();
         reviewService.delete(id, userId);

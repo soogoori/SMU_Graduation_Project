@@ -1,0 +1,65 @@
+.user-profile-container {
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    border: 1px solid #C0C0C0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.user-profile-container-left {
+    margin-right: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+
+.user-profile-container-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-profile-container-right p {
+    margin: 10px;
+    font-weight: bold;
+
+}
+
+.user-profile-container-right button {
+    margin-top: 30px;
+    color: black;
+    background-color: lightgray;
+    border: 5px aliceblue;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.profile-image{
+    width: 200px; /* 원하는 너비로 설정 */
+    height: 200px; /* 원하는 높이로 설정 */
+    border-radius: 50%; /* 50%로 설정하여 이미지를 원형으로 만듭니다 */
+    object-fit: cover;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+
+}
+
+.page-buttons button {
+    margin: 50px;
+    background-color: white;
+    padding: 10px;
+    border: white;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.page-buttons button:hover {
+    color: darkgray;
+}

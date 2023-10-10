@@ -1,12 +1,14 @@
 package graduation.shoewise.domain.shoes;
 
 import graduation.shoewise.domain.BaseEntity;
+import graduation.shoewise.domain.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +37,10 @@ public class Shoes extends BaseEntity {
     @Column(name = "avg_rating", nullable = false)
     private double avgRating;
 
+    /*@OneToMany
+    @JoinColumn(name = "review_id", nullable = false)
+    private List<Review> reviews;*/
+
     // 사이즈
     private double fitPercent; // BIG, NORMAL, SMALL
 
@@ -48,6 +54,7 @@ public class Shoes extends BaseEntity {
         updateName(updateShoes.getName());
         updateBrand(updateShoes.getBrand());
         updateImage(updateShoes.getImage());
+        updateProductCode(updateShoes.getProductCode());
     }
 
     public void updateName(String name) {

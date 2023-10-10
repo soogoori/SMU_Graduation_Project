@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShoesRequestDto {
     private String name;
+    private String productCode;
     private String brand;
 }

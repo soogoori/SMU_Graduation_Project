@@ -1,0 +1,32 @@
+/* MyShoes.css */
+
+h2 {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 50px;
+    border-top: 3px solid #C0C0C0;
+}
+
+.shoe-item {
+    margin-left: 50px;
+    margin-right: 50px;
+    border: 2px solid #C0C0C0;
+    border-radius: 10px;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.shoe-item p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+/* 로딩 중일 때 표시되는 스타일 */
+.loading-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}

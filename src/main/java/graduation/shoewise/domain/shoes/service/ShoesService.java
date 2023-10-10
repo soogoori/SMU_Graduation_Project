@@ -61,6 +61,8 @@ public class ShoesService {
     public ShoesResponseDto getShoesById(Long shoesId) {
         Shoes shoes = shoesRepository.findById(shoesId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다"));
+
+
         return ShoesResponseDto.from(shoes);
     }
 

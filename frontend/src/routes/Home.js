@@ -5,7 +5,6 @@ import Shoe from "../components/Shoe.js";
 import "../styles/css/Home.css";
 import logoImage from "../assets/logo.png"; // 로고 이미지 추가
 
-
 class Home extends React.Component {
     state = {
         isLoading: true,
@@ -15,7 +14,7 @@ class Home extends React.Component {
     // 로컬 API에서 신발 정보를 가져오는 함수
     fetchShoesData = async () => {
         try {
-            const response = await axios.get("/api/shoes",{
+            const response = await axios.get("/api/shoes", {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -39,11 +38,11 @@ class Home extends React.Component {
 
         return (
             <section className="home-container">
-                {/*<div className="logo-container">
+                {/* <div className="logo-container">
                     <Link to="/mypage">
                         <img src={logoImage} alt="Logo" className="logo" />
                     </Link>
-                </div>*/}
+                </div> */}
 
                 <h1>인기있는 제품</h1>
 
@@ -54,16 +53,18 @@ class Home extends React.Component {
                 ) : (
                     <div className="shoes">
                         {shoes.map((shoe) => (
-                            <Shoe
-                                key={shoe.id}
-                                id={shoe.id}
-                                brand={shoe.brand}
-                                name={shoe.name}
-                                productCode={shoe.productCode}
-                                image={shoe.image}
-                                avgRating={shoe.avgRating}
-                                reviewCnt={shoe.reviewCnt}
-                            />
+                            <Link key={shoe.id} to={`/shoes/${shoe.id}`}>
+                                {/* 링크를 클릭하면 해당 신발의 상세 페이지로 이동 */}
+                                <Shoe
+                                    id={shoe.id}
+                                    brand={shoe.brand}
+                                    name={shoe.name}
+                                    productCode={shoe.productCode}
+                                    image={shoe.image}
+                                    avgRating={shoe.avgRating}
+                                    reviewCnt={shoe.reviewCnt}
+                                />
+                            </Link>
                         ))}
                     </div>
                 )}

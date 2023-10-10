@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum Width{
-    WIDE, NORMAL, NARROW
+    CHOICE, WIDE, NORMAL, NARROW
 }

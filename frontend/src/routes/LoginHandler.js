@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 
-
-
 const LoginHandler = (props) => {
     const navigate = useNavigate();
     const code = new URL(window.location.href).searchParams.get("code");

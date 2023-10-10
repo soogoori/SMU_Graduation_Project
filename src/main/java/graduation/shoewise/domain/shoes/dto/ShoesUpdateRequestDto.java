@@ -11,8 +11,8 @@ public class ShoesUpdateRequestDto {
     @NotNull(message = "제품 이름이 없습니다.")
     String name;
 
-    @NotNull(message = "제품 이미지가 없습니다.")
-    String image;
+   /* @NotNull(message = "제품 이미지가 없습니다.")
+    String image;*/
 
     String brand;
 
@@ -22,7 +22,7 @@ public class ShoesUpdateRequestDto {
         return Shoes.builder()
                 .name(name)
                 .brand(brand)
-                .image(image)
+                //.image(image)
                 .productCode(productCode)
                 .build();
     }

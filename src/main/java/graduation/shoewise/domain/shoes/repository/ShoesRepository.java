@@ -1,7 +1,7 @@
 package graduation.shoewise.domain.shoes.repository;
 
 import graduation.shoewise.domain.shoes.Shoes;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,16 +21,17 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long>, ShoesReposi
 
     @Modifying
     @Query(value = "update Shoes s "
-            + "set s.avgRating = (s.totalRating + :reviewRating) / cast((s.reviewCount + 1) as double), "
+            + "set s.avgRating = ROUND((s.totalRating + :reviewRating) / cast((s.reviewCount + 1) as double),3), "
             + "s.reviewCount = s.reviewCount + 1, "
             + "s.totalRating = s.totalRating + :reviewRating "
             + "where s.id = :shoesId")
     void updateShoesStatisticsForReviewInsert(@Param("shoesId") Long shoesId, @Param("reviewRating") double reviewRating);
 
+
     @Modifying
     @Query(value = "update Shoes s "
             + "set s.avgRating = case s.reviewCount when 1 then 0 "
-            + "else ((s.totalRating - :reviewRating) / cast((s.reviewCount - 1) as double)) end , "
+            + "else ROUND((s.totalRating - :reviewRating) / cast((s.reviewCount - 1) as double), 3) end , "
             + "s.reviewCount = s.reviewCount - 1, "
             + "s.totalRating = s.totalRating - :reviewRating "
             + "where s.id = :shoesId")
@@ -39,7 +40,7 @@ public interface ShoesRepository extends JpaRepository<Shoes, Long>, ShoesReposi
 
     @Modifying
     @Query(value = "update Shoes s "
-            + "set s.avgRating = (s.totalRating + :ratingGap) / cast(s.reviewCount as double), "
+            + "set s.avgRating = ROUND((s.totalRating + :ratingGap) / cast(s.reviewCount as double),3), "
             + "s.totalRating = s.totalRating + :ratingGap "
             + "where s.id = :shoesId")
     void updateShoesStatisticsForReviewUpdate(@Param("shoesId")Long shoesId, @Param("ratingGap") double ratingGap);

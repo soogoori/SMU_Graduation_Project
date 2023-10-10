@@ -15,20 +15,20 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ReviewSaveRequestDto {
 
-    @NotNull(message = "리뷰 내용이 없습니다")
+    //@NotNull(message = "리뷰 내용이 없습니다")
     private String content;
     private String image;
 
-    @NotNull(message = "평가 점수가 없습니다")
+    //@NotNull(message = "평가 점수가 없습니다")
     private double rating;
 
-    @NotNull(message = "착화감을 알려주세요")
+    //@NotNull(message = "착화감을 알려주세요")
     private Feeling feeling;
 
-    @NotNull(message = "신발이 잘 맞는지 알려주세요")
+    //@NotNull(message = "신발이 잘 맞는지 알려주세요")
     private Fit fit;
 
-    @NotNull(message = "발볼이 잘 맞는지 알려주세요")
+    //@NotNull(message = "발볼이 잘 맞는지 알려주세요")
     private Width width;
 
     public Review toEntity(User user, Shoes shoes, String image) {

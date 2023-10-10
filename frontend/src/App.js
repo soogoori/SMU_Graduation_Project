@@ -14,6 +14,9 @@ import Logout from "./routes/Logout";
 import "./App.css"; // App 컴포넌트에 대한 스타일링을 위한 CSS 파일
 import MyPage from "./routes/MyPage";
 import MyShoes from "./routes/MyShoes";
+import WriteReview from "./routes/WriteReview";
+import WriteReviewForShoe from "./routes/WriteReviewForShoe";
+
 //import Profile from "./Profile";
 
 const App = () => {
@@ -34,7 +37,8 @@ const App = () => {
                     <Route path="/shoes/:shoeId" element={<ShoeDetail />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/join" element={<Join />} />
-
+                    <Route path="/writeReview" element={<WriteReview />} />
+                    <Route path="/write-review-for-shoe" element={<WriteReviewForShoe />} />
                     {/*<Route path="/profile" component={Profile} />*/}
                 </Routes>
             </div>

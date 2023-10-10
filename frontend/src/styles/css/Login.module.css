@@ -1,17 +1,81 @@
-.logincontainer{
-    text-align: center;
-    margin-top: 10px;
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 화면 높이에 맞게 조절 (화면 전체 높이) */
+    background-color: #c7c4c4;
+
 }
-.logoimg{
-    width: 300px;
-    margin-left: 20px;
-}
+
 .loginbox{
     /*border: 1px solid #d0d0d0;*/
     border-radius: 5px;
     /*padding: 40px 20px;*/
     margin: 30px;
 }
+
+.loginLogo {
+    width: 120px; /* 로고 이미지의 너비 조정 */
+    height: 120px; /* 로고 이미지의 높이 조정 */
+}
+
+/* ul 요소 스타일 조정 */
+ul {
+    list-style: none;
+    padding: 50px;
+}
+
+/* li 요소 스타일 조정 */
+li {
+    margin-top: 20px; /* 각 li 요소 사이에 간격 추가 (선택적) */
+}
+
+/* 로그인 버튼 이미지 스타일 조정 (가운데 정렬) */
+.loginButton {
+    display: block;
+    margin: 0 auto;
+}
+
+.logoutButton {
+    font-family: 'GmarketSansMedium', sans-serif;
+    padding: 20px 40px;
+    background: #F7E600;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #3A1D1D;
+    cursor: pointer; /* 커서 모양을 손가락 포인터로 설정 */
+}
+
+
+.logoutButton:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+    color: #000; /* 호버 시 텍스트 색상 변경 */
+}
+
+.homeButton {
+    font-family: 'GmarketSansMedium', sans-serif;
+    padding: 20px 40px;
+    background-color: #000;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #f0f0f0;
+    margin-top: 20px; /* 링크 위쪽 여백 추가 (선택적) */
+}
+
+.homeButton:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+    color: #000; /* 호버 시 텍스트 색상 변경 */
+}
+
+/*!* 홈으로 가는 링크 스타일 조정 *!
+.home-button {
+    margin-top: 20px; !* 링크 위쪽 여백 추가 (선택적) *!
+}*/
 
 .logoutcontainer{
     z-index: 100;

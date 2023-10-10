@@ -1,0 +1,49 @@
+/* WriteReviewForShoe.css */
+
+.write-review-for-shoe {
+    width: 300px;
+    padding: 20px;
+    border: 3px solid #ddd;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.write-review-for-shoe h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.write-review-for-shoe img {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.write-review-for-shoe p {
+    margin-bottom: 5px;
+}
+
+.write-review-for-shoe label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.write-review-for-shoe select,
+.write-review-for-shoe input,
+.write-review-for-shoe textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.write-review-for-shoe button {
+    background-color: #E2E2E2;
+    color: Black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.write-review-for-shoe button:hover {
+    background-color: #693232;
+}

@@ -1,13 +1,8 @@
 package graduation.shoewise.domain.shoes.dto;
 
 import graduation.shoewise.domain.shoes.Shoes;
-import graduation.shoewise.domain.review.dto.ReviewResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor

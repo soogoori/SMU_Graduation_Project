@@ -5,5 +5,5 @@ import lombok.Getter;
 
 @Getter
 public enum Feeling{
-    GOOD, NORMAL, BAD
+    CHOICE, GOOD, NORMAL, BAD
 }

@@ -1,6 +1,6 @@
 // Shoe.js (가정: 신발 정보를 표시하는 컴포넌트)
 import React from "react";
-//import "../styles/css/Shoe.css";
+import "../styles/css/Shoe.css";
 
 const Shoe = ({ id, brand, name, productCode, image, avgRating, reviewCnt }) => {
     return (
