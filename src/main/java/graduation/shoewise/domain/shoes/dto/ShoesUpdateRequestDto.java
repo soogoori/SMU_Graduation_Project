@@ -17,6 +17,7 @@ public class ShoesUpdateRequestDto {
     String brand;
 
     String productCode;
+    String productName;
 
     public Shoes toEntity(){
         return Shoes.builder()
@@ -24,6 +25,7 @@ public class ShoesUpdateRequestDto {
                 .brand(brand)
                 //.image(image)
                 .productCode(productCode)
+                .productName(productName)
                 .build();
     }
 }

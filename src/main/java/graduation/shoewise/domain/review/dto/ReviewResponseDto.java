@@ -16,6 +16,7 @@ public class ReviewResponseDto {
     private final Feeling feeling;
     private final Fit fit;
     private final Width width;
+    private final int size;
 
 
     public ReviewResponseDto(Review entity) {
@@ -27,5 +28,6 @@ public class ReviewResponseDto {
         this.fit = entity.getFit();
         this.width = entity.getWidth();
         this.feeling = entity.getFeeling();
+        this.size = entity.getSize();
     }
 }

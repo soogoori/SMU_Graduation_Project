@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MyShoes from './MyShoes';
 import WriteReview from './WriteReview';
+import ProfileManagement from './ProfileManagement';
 import "../styles/css/MyPage.css"
 import axios from 'axios';
 import profileImageDefault from "../assets/profileDefault.png"
 
+import '../styles/css/MyPage.css';
+//import '../ProfileManagement.css';
 const MyPage = () => {
     const [activePage, setActivePage] = useState('MyShoes');
     const [shoesData, setShoesData] = useState([]);
@@ -14,6 +17,9 @@ const MyPage = () => {
     const [userNickname, setUserNickname] = useState('');
     const [userId, setUserId] = useState('');
     const [userSize, setUserSize] = useState('');
+    const [userWidth, setUserWidth] = useState('');
+
+    const [profileUpdate, setProfileUpdate] = useState(false);
 
     useEffect(() => {
         const fetchUserShoes = async () => {
@@ -21,8 +27,8 @@ const MyPage = () => {
                 const response = await axios.get('/api/users/me/purchases', {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
                 });
                 const { hasNext, purchase } = response.data;
                 setShoesData(purchase);
@@ -38,14 +44,15 @@ const MyPage = () => {
                 const response = await axios.get('/api/users/me', {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
                 });
-                const { profileImage, nickname, id, size } = response.data;
+                const { profileImage, nickname, id, size, width } = response.data;
                 setUserProfileImage(profileImage);
                 setUserNickname(nickname);
                 setUserId(id);
                 setUserSize(size);
+                setUserWidth(width);
             } catch (error) {
                 console.error('Error fetching user profile:', error);
             }
@@ -53,7 +60,12 @@ const MyPage = () => {
 
         fetchUserShoes();
         fetchUserProfile();
-    }, []);
+    }, [profileUpdate]); // 프로필 업데이트 감지
+
+    const onUpdateProfile = () => {
+        // 프로필이 업데이트되었음을 알림
+        setProfileUpdate(true);
+    };
 
     const renderPage = () => {
         switch (activePage) {
@@ -61,6 +73,9 @@ const MyPage = () => {
                 return <MyShoes shoesData={shoesData} loading={loading} />;
             case 'WriteReview':
                 return <WriteReview userId={userId} />;
+            case 'ProfileManagement':
+                // 프로필 관리 페이지에 대한 렌더링 코드 추가
+                return <ProfileManagement userId={userId} onUpdateProfile={onUpdateProfile} />;
             default:
                 return <MyShoes shoesData={shoesData} loading={loading} />;
         }
@@ -71,13 +86,16 @@ const MyPage = () => {
             {/* 사용자 정보 상단 컨테이너 */}
             <div className="user-profile-container">
                 <div className="user-profile-container-left">
-                    <img src={userProfileImage || profileImageDefault} alt="Profile" className="profile-image"/>
+                    <img src={userProfileImage} alt="Profile" />
                 </div>
                 <div className="user-profile-container-right">
                     <p>UserNickname: {userNickname}</p>
                     <p>ID: {userId}</p>
                     <p>Size: {userSize}</p>
-                    <button>프로필 수정</button>
+                    <p>Width: {userWidth}</p>
+                    <Link to="profile-management">
+                        <button>프로필 수정</button>
+                    </Link>
                 </div>
             </div>
 
@@ -85,7 +103,6 @@ const MyPage = () => {
             <div className="page-buttons">
                 <button onClick={() => setActivePage('MyShoes')}>보유신발</button>
                 <button onClick={() => setActivePage('WriteReview')}>작성리뷰</button>
-                <button onClick={() => setActivePage('ShoeSize')}>신발사이즈</button>
                 <button onClick={() => setActivePage('ProfileManagement')}>프로필관리</button>
             </div>
 

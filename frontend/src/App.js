@@ -16,6 +16,7 @@ import MyPage from "./routes/MyPage";
 import MyShoes from "./routes/MyShoes";
 import WriteReview from "./routes/WriteReview";
 import WriteReviewForShoe from "./routes/WriteReviewForShoe";
+import EditReviewModal from "./routes/EditReviewModal";
 
 //import Profile from "./Profile";
 
@@ -39,6 +40,7 @@ const App = () => {
                     <Route path="/join" element={<Join />} />
                     <Route path="/writeReview" element={<WriteReview />} />
                     <Route path="/write-review-for-shoe" element={<WriteReviewForShoe />} />
+                    <Route path="/edit-review-modal" element={<EditReviewModal />} />
                     {/*<Route path="/profile" component={Profile} />*/}
                 </Routes>
             </div>

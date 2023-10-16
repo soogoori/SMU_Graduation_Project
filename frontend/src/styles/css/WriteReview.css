@@ -1,0 +1,60 @@
+/* WriteReview.css */
+
+.write-review-container h2 {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 50px;
+    border-top: 3px solid #C0C0C0;
+}
+
+.review-box {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border: 2px solid #C0C0C0;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    margin-right: 20px;
+}
+
+.review-details p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.edit-button,
+.delete-button {
+    background-color: #c0c0c0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: black;
+}
+
+/* 로딩 중일 때 표시되는 스타일 */
+.loading-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}

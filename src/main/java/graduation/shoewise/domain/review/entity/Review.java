@@ -42,6 +42,8 @@ public class Review extends BaseEntity {
 
     private String image;
 
+    private int size;
+
     @Column(nullable = false)
     private double rating;
 
@@ -67,6 +69,7 @@ public class Review extends BaseEntity {
         this.width = requestDto.getWidth();
         this.feeling = requestDto.getFeeling();
         this.rating = requestDto.getRating();
+        this.size = requestDto.getSize();
     }
 
     public void update(String image) {

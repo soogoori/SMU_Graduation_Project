@@ -31,6 +31,9 @@ public class ReviewRequestDto {
     @NotNull(message = "발볼 정보가 없습니다.")
     private Width width;
 
+    @NotNull(message = "신발 사이즈 정보가 없습니다.")
+    private int size;
+
     public Review toEntity(User user, Shoes shoes) {
         return Review.builder()
                 .user(user)
@@ -41,6 +44,7 @@ public class ReviewRequestDto {
                 .feeling(feeling)
                 .fit(fit)
                 .width(width)
+                .size(size)
                 .build();
     }
 }

@@ -19,10 +19,11 @@ public class ReviewWithUserResponseDto {
     private Width width;
     private Feeling feeling;
     private boolean isUser;
+    private int size;
 
     public ReviewWithUserResponseDto(final Long id, final ReviewAuthorResponseDto author,
                                      final Long shoesId, final String content, final double rating,
-                                     final Fit fit, final Width width, final Feeling feeling, final boolean isUser) {
+                                     final Fit fit, final Width width, final Feeling feeling, final boolean isUser, final int size) {
         this.id = id;
         this.author = author;
         this.shoesId = shoesId;
@@ -32,6 +33,7 @@ public class ReviewWithUserResponseDto {
         this.width = width;
         this.feeling = feeling;
         this.isUser = isUser;
+        this.size=size;
     }
 
     public static ReviewWithUserResponseDto of(final Review review, final Long userId) {
@@ -39,7 +41,7 @@ public class ReviewWithUserResponseDto {
         final ReviewAuthorResponseDto authorResponse = ReviewAuthorResponseDto.from(user);
         return new ReviewWithUserResponseDto(review.getId(), authorResponse, review.getShoes().getId(),
                 review.getContent(), review.getRating(), review.getFit(), review.getWidth(),
-                review.getFeeling(), user.isSameId(userId));
+                review.getFeeling(), user.isSameId(userId), review.getSize());
 
     }
 
@@ -48,7 +50,7 @@ public class ReviewWithUserResponseDto {
         final ReviewAuthorResponseDto authorResponse = ReviewAuthorResponseDto.from(user);
         return new ReviewWithUserResponseDto(review.getId(), authorResponse, review.getShoes().getId(),
                 review.getContent(), review.getRating(), review.getFit(), review.getWidth(),
-                review.getFeeling(), false);
+                review.getFeeling(), false, review.getSize());
 
     }
 }

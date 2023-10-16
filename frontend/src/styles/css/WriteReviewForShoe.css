@@ -1,11 +1,28 @@
 /* WriteReviewForShoe.css */
 
 .write-review-for-shoe {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 300px;
     padding: 20px;
     border: 3px solid #ddd;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
 
 .write-review-for-shoe h3 {
     font-size: 1.2em;
@@ -45,5 +62,5 @@
 }
 
 .write-review-for-shoe button:hover {
-    background-color: #693232;
+    background-color: #c0c0c0;
 }

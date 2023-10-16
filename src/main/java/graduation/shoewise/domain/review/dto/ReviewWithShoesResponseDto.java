@@ -19,9 +19,10 @@ public class ReviewWithShoesResponseDto {
     private final Feeling feeling;
     private final Fit fit;
     private final Width width;
+    private final int size;
 
     public static ReviewWithShoesResponseDto from(Review review){
         return new ReviewWithShoesResponseDto(review.getId(), ShoesResponseDto.from(review.getShoes()),
-                review.getContent(), review.getRating(), review.getFeeling(), review.getFit(), review.getWidth());
+                review.getContent(), review.getRating(), review.getFeeling(), review.getFit(), review.getWidth(), review.getSize());
     }
 }

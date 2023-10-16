@@ -43,6 +43,8 @@ public class QShoes extends EntityPathBase<Shoes> {
 
     public final StringPath productCode = createString("productCode");
 
+    public final StringPath productName = createString("productName");
+
     public final NumberPath<Integer> reviewCount = createNumber("reviewCount", Integer.class);
 
     public final NumberPath<Double> totalRating = createNumber("totalRating", Double.class);

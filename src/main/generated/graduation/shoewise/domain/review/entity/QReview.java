@@ -44,6 +44,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final graduation.shoewise.domain.shoes.QShoes shoes;
 
+    public final NumberPath<Integer> size = createNumber("size", Integer.class);
+
     public final graduation.shoewise.domain.user.QUser user;
 
     public final EnumPath<Width> width = createEnum("width", Width.class);

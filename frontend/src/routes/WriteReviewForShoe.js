@@ -4,20 +4,19 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';  // useHistory 추가
 import '../styles/css/WriteReviewForShoe.css';
 
-const WriteReviewForShoe = ({ shoeId, onReviewSubmit }) => {
+const WriteReviewForShoe = ({ shoeId, onReviewSubmit, onClose }) => {
     const [shoeInfo, setShoeInfo] = useState(null);
     const [rating, setRating] = useState(0);
     const [fit, setFit] = useState('');
     const [feeling, setFeeling] = useState('');
     const [width, setWidth] = useState('');
     const [reviewContent, setReviewContent] = useState('');
-    const history = useNavigate();  // useHistory 사용
 
     useEffect(() => {
         const fetchShoeInfo = async () => {
             try {
                 // 신발 정보 가져오기
-                const shoeResponse = await axios.get(`/api/shoes/${shoeId}`,{
+                const shoeResponse = await axios.get(`/api/shoes/${shoeId}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -43,7 +42,7 @@ const WriteReviewForShoe = ({ shoeId, onReviewSubmit }) => {
                 feeling,
                 width,
                 content: reviewContent,
-            },{
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -59,9 +58,6 @@ const WriteReviewForShoe = ({ shoeId, onReviewSubmit }) => {
 
             // 리뷰를 다시 불러오기 위한 콜백을 실행합니다.
             onReviewSubmit();
-
-            // 리뷰를 작성한 후 ShoeDetail 페이지로 이동합니다.
-            history.push(`/shoes/${shoeId}`);
         } catch (error) {
             console.error('Error submitting review:', error);
         }
@@ -73,13 +69,16 @@ const WriteReviewForShoe = ({ shoeId, onReviewSubmit }) => {
 
     return (
         <div className="write-review-for-shoe">
+            <div className="close-button" onClick={onClose}>
+                &times;
+            </div>
             <h3>리뷰 작성</h3>
             <div>
-                {/* 신발 정보를 표시합니다. */}
                 <img src={shoeInfo.image} alt={shoeInfo.name} />
                 <p>{shoeInfo.name}</p>
                 <p>품번: {shoeInfo.productCode}</p>
             </div>
+
             <form onSubmit={handleReviewSubmit}>
                 {/* 별점 입력 */}
                 <label htmlFor="rating">별점:</label>

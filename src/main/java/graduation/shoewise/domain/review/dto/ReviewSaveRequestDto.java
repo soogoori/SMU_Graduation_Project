@@ -31,6 +31,8 @@ public class ReviewSaveRequestDto {
     //@NotNull(message = "발볼이 잘 맞는지 알려주세요")
     private Width width;
 
+    private int size;
+
     public Review toEntity(User user, Shoes shoes, String image) {
         return Review.builder()
                 .user(user)
@@ -41,6 +43,7 @@ public class ReviewSaveRequestDto {
                 .feeling(this.feeling)
                 .fit(this.fit)
                 .width(this.width)
+                .size(this.size)
                 .build();
     }
 }

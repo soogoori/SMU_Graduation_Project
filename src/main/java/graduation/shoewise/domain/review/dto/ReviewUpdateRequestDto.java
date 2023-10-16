@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewUpdateRequestDto {
     private String content;
+    private int size;
     private Fit fit;
     private Width width;
     private Feeling feeling;
@@ -20,6 +21,7 @@ public class ReviewUpdateRequestDto {
     public Review toEntity() {
         return Review.builder()
                 .content(content)
+                .size(size)
                 .rating(rating)
                 .feeling(feeling)
                 .fit(fit)

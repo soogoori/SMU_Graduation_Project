@@ -1,14 +1,13 @@
 package graduation.shoewise.domain.shoes;
 
 import graduation.shoewise.domain.BaseEntity;
-import graduation.shoewise.domain.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -27,6 +26,8 @@ public class Shoes extends BaseEntity {
     private String brand;
 
     private String productCode;
+
+    private String productName;
 
     private String image;
 
@@ -55,6 +56,7 @@ public class Shoes extends BaseEntity {
         updateBrand(updateShoes.getBrand());
         updateImage(updateShoes.getImage());
         updateProductCode(updateShoes.getProductCode());
+        updateProductName(updateShoes.getProductName());
     }
 
     public void updateName(String name) {
@@ -71,6 +73,12 @@ public class Shoes extends BaseEntity {
     public void updateProductCode(String productCode){
         if(productCode!=null){
             this.productCode = productCode;
+        }
+    }
+
+    public void updateProductName(String productName){
+        if(productName!=null){
+            this.productName = productName;
         }
     }
 

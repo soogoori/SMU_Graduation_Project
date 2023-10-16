@@ -19,6 +19,7 @@ public class ShoesRegisterRequestDto {
     String brand;
 
     String productCode;
+    String productName;
 
     public Shoes toEntity(String image){
         return Shoes.builder()
@@ -26,6 +27,7 @@ public class ShoesRegisterRequestDto {
                 .brand(brand)
                 .image(image)
                 .productCode(productCode)
+                .productName(productName)
                 .build();
     }
 }

@@ -10,6 +10,7 @@ public class ShoesResponseDto {
     private Long id;
     private String name;
     private String productCode;
+    private String productName;
     private String brand;
     private String image;
     private int reviewCnt;
@@ -20,6 +21,7 @@ public class ShoesResponseDto {
                 shoes.getId(),
                 shoes.getName(),
                 shoes.getProductCode(),
+                shoes.getProductName(),
                 shoes.getBrand(),
                 shoes.getImage(),
                 shoes.getReviewCount(),

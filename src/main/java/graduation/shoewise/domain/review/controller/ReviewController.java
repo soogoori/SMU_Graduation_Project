@@ -59,6 +59,16 @@ public class ReviewController {
         return reviewService.findAllByShoesId(shoesId, userId, pageable);
     }
 
+    // AI 리뷰 가져오기
+    @ApiOperation(value = "Get shoes' AI review", notes="AI 리뷰 불러오기")
+    @GetMapping("/shoes/{shoesId}/aiReviews")
+    public AIReviewResponseDto getAIReview(@PathVariable Long shoesId) throws IOException {
+
+        String path = "/Users/soobin/Desktop/shoe_review.csv";
+
+        return reviewService.getAIReviewByShoesName(shoesId, path);
+    }
+
 
     // 리뷰 수정
     @ApiOperation(value = "update shoes' review", notes="특정 신발 리뷰 수정")
