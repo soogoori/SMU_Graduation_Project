@@ -32,4 +32,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRep
     Optional<Review> findByUserIdAndShoes(@Param("userId")Long userId, @Param("shoesId")Long shoesId);
 
 
+    @Query("select r from Review r where r.shoes.id = :shoesId and r.size= :size")
+    Optional<Review> findBySizeAndShoes(@Param("size")int size, @Param("shoesId")Long shoesId);
 }

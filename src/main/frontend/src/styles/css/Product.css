@@ -1,0 +1,43 @@
+.product-container {
+    padding: 20px;
+}
+
+.brand-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.brand-buttons button {
+    font-family: 'Black Han Sans', sans-serif;
+    padding: 8px 16px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #0a0e11;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+
+.brand-buttons button.selected {
+    background-color: #c5bebe; /* 원하는 색상으로 변경하세요 */
+    color: #0a0a0a; /* 선택된 버튼의 텍스트 색상 변경 */
+}
+
+.shoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/*.shoe-card {
+    color: #0a0a0a;
+}*/
+
+/*
+.shoe-details {
+    text-decoration: none; !* 밑줄을 없앱니다. *!
+}*/

@@ -4,6 +4,8 @@ import graduation.shoewise.domain.review.entity.Feeling;
 import graduation.shoewise.domain.review.entity.Fit;
 import graduation.shoewise.domain.review.entity.Width;
 import graduation.shoewise.domain.review.entity.Review;
+import graduation.shoewise.domain.shoes.Shoes;
+import graduation.shoewise.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +20,10 @@ public class ReviewUpdateRequestDto {
     private double rating;
 
 
-    public Review toEntity() {
+    public Review toEntity(User user, Shoes shoes) {
         return Review.builder()
+                .user(user)
+                .shoes(shoes)
                 .content(content)
                 .size(size)
                 .rating(rating)

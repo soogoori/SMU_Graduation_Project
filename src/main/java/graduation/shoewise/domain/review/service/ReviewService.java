@@ -77,7 +77,10 @@ public class ReviewService {
 
     // 리뷰 수정
     @Transactional
-    public Long update(Long id, Long userId, ReviewUpdateRequestDto requestDto, MultipartFile multipartFile) throws BaseException, IOException {
+    public void update(Long shoesId, Long id, Long userId, ReviewUpdateRequestDto requestDto/*, MultipartFile multipartFile*/) throws BaseException, IOException {
+
+        Shoes shoes = shoesRepository.findById(shoesId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 신발 없음"));
 
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 없습니다. id=" + id));
@@ -103,7 +106,7 @@ public class ReviewService {
         log.info("RatingGap : " + ratingGap);
         shoesRepository.updateShoesStatisticsForReviewUpdate(review.getShoes().getId(), ratingGap);
 
-        String image = null;
+       /* String image = null;
         if (!multipartFile.isEmpty()) { // 사진이 수정된 경우
             image = (s3Uploader.upload(multipartFile, "review"));// 새로들어온 이미지 s3 저장
             Review reviews = reviewRepository.findById(id).orElseThrow(
@@ -113,8 +116,7 @@ public class ReviewService {
                 s3Uploader.delete(review.getImage(), "review");  // 이전 이미지 파일 삭제
             }
             reviews.update(image);
-        }
-        return reviewRepository.save(requestDto.toEntity()).getId();
+        }*/
     }
 
     // 리뷰 상세 조회
@@ -144,11 +146,9 @@ public class ReviewService {
         Shoes shoes = shoesRepository.findById(shoesId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 신발이 없습니다. id =" + shoesId));
 
-        String name = shoes.getName();
+        String name = shoes.getProductName();
         List<String> aiReview = new ArrayList<>();
         String shoesName="";
-
-        String path = "/Users/soobin/Desktop/shoe_review.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -159,23 +159,22 @@ public class ReviewService {
             e.printStackTrace();
         }
 
-
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath),StandardCharsets.UTF_8);
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT)) {
             for (CSVRecord record : csvParser) {
                 if (record.size() >= 2) {
-                    log.info("레코드 0번에 뭐있냐 " + record.get(0).substring(1));
-                    log.info("이름 "+ name.length());
+                    /*log.info("레코드 0번에 뭐있냐 " + record.get(0));
+                    log.info("이름 "+ name.length());*/
 
-                    String getRecord = record.get(0).substring(1);
-                    log.info("이름 "+ getRecord.length());
+                    String getRecord = record.get(0);
+                    //log.info("이름 "+ getRecord.length());
                     if (name.equals(getRecord)) {
-                        log.info("이름같음 "+ name);
+                        //log.info("이름같음 "+ name);
                         String[] contentArray = record.get(1).split("\\n");
-                        log.info("레코드 1번에 뭐있냐 " + record.get(1));
+                        //log.info("레코드 1번에 뭐있냐 " + record.get(1));
                         aiReview = Arrays.asList(contentArray);
                         shoesName = name;
-                        log.info("신발이름" + shoesName);
+                        //log.info("신발이름" + shoesName);
                         break;  // 찾았으면 반복 중단
                     }
                 }
@@ -187,6 +186,53 @@ public class ReviewService {
         }
         return new AIReviewResponseDto(shoesId, shoesName,aiReview);
     }
+
+    // AI 뉴스 조회
+    public AINewsResponseDto getAINewsByShoesName(Long shoesId, String filePath) throws IOException {
+        Shoes shoes = shoesRepository.findById(shoesId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 신발이 없습니다. id =" + shoesId));
+
+        String name = shoes.getProductName();
+        List<String> aiNews = new ArrayList<>();
+        String shoesName="";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePath),StandardCharsets.UTF_8);
+             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT)) {
+            for (CSVRecord record : csvParser) {
+                if (record.size() >= 2) {
+                    /*log.info("레코드 0번에 뭐있냐 " + record.get(0));
+                    log.info("이름 "+ name.length());*/
+
+                    String getRecord = record.get(0);
+                    //log.info("이름 "+ getRecord.length());
+                    if (name.equals(getRecord)) {
+                        //log.info("이름같음 "+ name);
+                        String[] contentArray = record.get(1).split("\\n");
+                        //log.info("레코드 1번에 뭐있냐 " + record.get(1));
+                        aiNews = Arrays.asList(contentArray);
+                        shoesName = name;
+                        //log.info("신발이름" + shoesName);
+                        break;  // 찾았으면 반복 중단
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // 파일 읽기 예외 처리
+            log.error("파일 읽기 중 오류 발생: " + e.getMessage());
+            throw e;
+        }
+        return new AINewsResponseDto(shoesId, shoesName, aiNews);
+    }
+
 
     // 유저가 작성한 리뷰 조회
     public ReviewWithShoesPageResponseDto findReviewsByUserId(Long userId,

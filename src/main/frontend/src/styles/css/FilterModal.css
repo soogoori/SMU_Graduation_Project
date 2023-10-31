@@ -1,0 +1,61 @@
+.filter-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid #c0c0c0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-options label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.filter-options label>button {
+    flex-basis: calc(25% - 10px);
+    margin: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    /* hover 효과를 부드럽게 만듭니다. */
+}
+
+/* 마우스 호버 시 스타일 변경 */
+.filter-options label>button:hover {
+    background-color: #b2b2b2;
+    color: black;
+}
+
+/* 선택된 버튼의 스타일 */
+.filter-options label>button.selected {
+    background-color: #b2b2b2;
+    color: black;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.buttons-container>button {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px 20px;
+}
+
+.filter-options,
+.filter-modal>button {
+    align-self: center;
+}

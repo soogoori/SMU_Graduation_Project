@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5500d95e.css",
+    "main.js": "/static/js/main.76b0b1b2.js",
+    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/DoHyeon-Regular.woff": "/static/media/DoHyeon-Regular.9bc23f35caf48a827be0.woff",
+    "static/media/BlackHanSans-Regular.woff": "/static/media/BlackHanSans-Regular.2786b17765701944d81f.woff",
+    "static/media/shoewiseLogoB.png": "/static/media/shoewiseLogoB.d05a8a9aef2942ae784f.png",
+    "static/media/logo.png": "/static/media/logo.68e85651d29aa68b5932.png",
+    "static/media/Gabarito-VariableFont_wght.woff": "/static/media/Gabarito-VariableFont_wght.9a6f2044019d38a46de4.woff",
+    "static/media/LilitaOne-Regular.woff": "/static/media/LilitaOne-Regular.a13128ef95c04748e917.woff",
+    "static/media/profileDefault.png": "/static/media/profileDefault.4d4a5aa6db292b4c1b3f.png",
+    "index.html": "/index.html",
+    "static/media/kakao_logo.svg": "/static/media/kakao_logo.13be6f95155dc75e9ddb.svg",
+    "main.5500d95e.css.map": "/static/css/main.5500d95e.css.map",
+    "main.76b0b1b2.js.map": "/static/js/main.76b0b1b2.js.map",
+    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5500d95e.css",
+    "static/js/main.76b0b1b2.js"
+  ]
+}

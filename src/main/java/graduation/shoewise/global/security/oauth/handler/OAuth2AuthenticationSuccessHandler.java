@@ -85,7 +85,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         /*return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect/"+tokenInfo.getAccessToken())
                 .build().toUriString();*/
 
-        return UriComponentsBuilder.fromUriString("http://localhost:3000/join")
+        return UriComponentsBuilder.fromUriString("http://localhost:8080/join")
                 .queryParam("accessToken", tokenInfo.getAccessToken())
                 .build().toUriString();
 

@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,12 @@ public class PurchaseService {
     public PurchaseWithUserPageResponse get(Pageable pageable) {
 
         Slice<Purchase> purchaseList = purchaseRepository.findAll(pageable);
+        return PurchaseWithUserPageResponse.from(purchaseList);
+    }
+
+    // 사용자별 구매목록 조회
+    public PurchaseWithUserPageResponse getWithUser(Long userId, Pageable pageable){
+        Slice<Purchase> purchaseList = purchaseRepository.findAllByUserId(userId, pageable);
         return PurchaseWithUserPageResponse.from(purchaseList);
     }
 

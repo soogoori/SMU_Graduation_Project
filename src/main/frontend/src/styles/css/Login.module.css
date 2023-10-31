@@ -1,0 +1,190 @@
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 화면 높이에 맞게 조절 (화면 전체 높이) */
+    background-color: #c7c4c4;
+
+}
+
+.loginbox{
+    /*border: 1px solid #d0d0d0;*/
+    border-radius: 5px;
+    /*padding: 40px 20px;*/
+}
+.loginLogo {
+    width: 400px; /* 로고 이미지의 너비 조정 */
+    height: 400px; /* 로고 이미지의 높이 조정 */
+}
+
+/* ul 요소 스타일 조정 */
+ul {
+    list-style: none;
+    padding: 50px;
+}
+
+/* li 요소 스타일 조정 */
+li {
+    margin-top: 20px; /* 각 li 요소 사이에 간격 추가 (선택적) */
+}
+
+/* 로그인 버튼 이미지 스타일 조정 (가운데 정렬) */
+.loginButton {
+    display: block;
+    margin: 0 auto;
+}
+
+.logoutButton {
+    font-family: 'GmarketSansMedium', sans-serif;
+    padding: 20px 40px;
+    background: #F7E600;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #3A1D1D;
+    cursor: pointer; /* 커서 모양을 손가락 포인터로 설정 */
+}
+
+
+.logoutButton:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+    color: #000; /* 호버 시 텍스트 색상 변경 */
+}
+
+.homeButton {
+    font-family: 'GmarketSansMedium', sans-serif;
+    padding: 20px 40px;
+    background-color: #000;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #f0f0f0;
+    margin-top: 20px; /* 링크 위쪽 여백 추가 (선택적) */
+}
+
+.homeButton:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+    color: #000; /* 호버 시 텍스트 색상 변경 */
+}
+
+/*!* 홈으로 가는 링크 스타일 조정 *!
+.home-button {
+    margin-top: 20px; !* 링크 위쪽 여백 추가 (선택적) *!
+}*/
+
+.logoutcontainer{
+    z-index: 100;
+    position: fixed;
+    height: 180px;
+    margin: 120px auto;
+    background-color: rgba(236, 236, 236, 0.926);
+}
+
+.joincontainer{
+    position: fixed;
+    height: 230px;
+    background-color: rgba(236, 236, 236, 0.926);
+    margin: 120px auto;
+}
+
+.logoutcontainer, .joincontainer{
+    text-align: center;
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+
+    /*right: 50%;
+    top: 10%;*/
+    top: 30%; /* 수직 가운데 정렬을 위해 화면 상단에서 50% 떨어진 위치 */
+    left: 50%; /* 수평 가운데 정렬을 위해 화면 왼쪽에서 50% 떨어진 위치 */
+    transform: translate(-50%, -50%); /* 모달을 정중앙으로 이동 */
+}
+
+
+.logoutAsk {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.loginSuccess{
+    font-family: 'GmarketSansBold', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+.buttons {
+    /*border: 1px solid #000000;*/
+    width: 450px;
+    margin: 0 auto;
+}
+.kakao{
+    width: 100%;
+    border: 1px solid #000000;
+    cursor: pointer;
+    padding: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.kakao {
+    background: rgb(255, 255, 255)
+    url('../../../public/kakao_logo.svg')
+    no-repeat 15px center / 50px 50px padding-box border-box;
+    background-size: 25px; /* 로고 크기 */
+
+    border: 1px solid rgb(0, 0, 0);
+}
+.kakao:hover {
+    background: rgb(250, 225, 0)
+    url('../../../public/kakao_logo.svg')
+    no-repeat 15px center / 50px 50px padding-box border-box;
+    background-size: 25px; /* 로고 크기 */
+    border-color: rgb(250, 225, 0);
+}
+
+.no,
+.yes {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+    width: 150px;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.no {
+    background-color: #706e6e;
+}
+
+.yes {
+    background-color: #121213;
+    color: white;
+}
+
+.loginHello {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+}
+
+.cont {
+    font-family: 'GmarketSansMedium', sans-serif;
+    font-size: 20px;
+    width: 200px;
+    padding : 10px;
+    margin-top: -40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #626060;
+    cursor: pointer;
+}
+
+.cont:hover{
+    background-color: #121213;
+    color: #f0f0f0;
+}

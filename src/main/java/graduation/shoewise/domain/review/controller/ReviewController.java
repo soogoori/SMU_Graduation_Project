@@ -11,13 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URI;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -64,22 +61,32 @@ public class ReviewController {
     @GetMapping("/shoes/{shoesId}/aiReviews")
     public AIReviewResponseDto getAIReview(@PathVariable Long shoesId) throws IOException {
 
-        String path = "/Users/soobin/Desktop/shoe_review.csv";
+        String path = "/Users/soobin/Desktop/shoename_content.csv";
 
         return reviewService.getAIReviewByShoesName(shoesId, path);
+    }
+
+    // AI 뉴스 가져오기
+    @ApiOperation(value = "Get shoes' AI News", notes="AI 뉴스 불러오기")
+    @GetMapping("/shoes/{shoesId}/aiNews")
+    public AINewsResponseDto getAINews(@PathVariable Long shoesId) throws IOException {
+
+        String path = "/Users/soobin/Desktop/chatgpt_shoereview.csv";
+
+        return reviewService.getAINewsByShoesName(shoesId, path);
     }
 
 
     // 리뷰 수정
     @ApiOperation(value = "update shoes' review", notes="특정 신발 리뷰 수정")
     @PutMapping("/{shoesId}/reviews/{id}")
-    public Long updateReview(@PathVariable Long shoesId,
+    public void updateReview(@PathVariable Long shoesId,
                              @PathVariable Long id,
-                             @RequestPart ReviewUpdateRequestDto requestDto,
-                             @RequestPart(value = "image" ,required = false) MultipartFile multipartFile) throws BaseException, IOException {
+                             @RequestBody ReviewUpdateRequestDto requestDto
+                             /*@RequestPart(value = "image" ,required = false) MultipartFile multipartFile*/) throws BaseException, IOException {
 
         Long userId = SecurityUtil.getCurrentMemberPk();
-        return reviewService.update(id, userId, requestDto, multipartFile);
+        reviewService.update(shoesId, id, userId, requestDto/*, multipartFile*/);
     }
 
 

@@ -51,7 +51,7 @@ public class ShoesAdminController {
     @PutMapping("/{shoesId}")
     @ApiOperation(value = "update shoes", notes = "신발 게시물 수정")
     public void update(@PathVariable Long shoesId,
-                       @RequestPart ShoesUpdateRequestDto requestDto,
+                       @RequestBody ShoesUpdateRequestDto requestDto,
                        @RequestPart (value = "image" ,required = false) MultipartFile multipartFile) throws IOException {
         shoesService.update(shoesId, requestDto,multipartFile);
     }

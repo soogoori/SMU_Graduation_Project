@@ -38,6 +38,13 @@ public class PurchaseController {
         return purchaseService.get(pageable);
     }
 
+    // 다른 사용자의 구매목록 조회
+    @ApiOperation(value = "get purchase from users", notes = "다른 사용자 구매목록 조회")
+    @GetMapping("/user/{userId}")
+    public PurchaseWithUserPageResponse purchaseListWithUser(Pageable pageable, @PathVariable Long userId){
+        return purchaseService.getWithUser(userId, pageable);
+    }
+
     // 구매목록 삭제
     @ApiOperation(value = "delete purchase", notes = "구매목록 삭제")
     @DeleteMapping("/{purchaseId}")

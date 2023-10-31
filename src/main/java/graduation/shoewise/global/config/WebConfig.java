@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
         CorsConfiguration corsConfiguration;
 
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") //외부에서 들어오는 모든 url 허용
+                .allowedOrigins("http://localhost:8080") //외부에서 들어오는 모든 url 허용
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") //허용되는 Method
                 .allowedHeaders("*")  //허용되는 헤더
                 .allowCredentials(true)

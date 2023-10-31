@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ShoesController {
     // 신발 게시물 전체 조회
     @GetMapping
     @ApiOperation(value = "get all shoes", notes = "신발 게시물 전체 조회")
-    public ShoesPageResponse getAllShoes(final Pageable pageable) {
+    public ShoesPageResponse getAllShoes(@PageableDefault(size = 150) final Pageable pageable) {
         return shoesService.getShoesAll(pageable);
     }
 
